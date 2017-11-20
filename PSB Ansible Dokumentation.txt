@@ -1,0 +1,60 @@
+Documentation Ansible
+
+
+# Installation Ansible
+yum install ansible
+
+
+
+# SSH connection to remote host
+
+# Configure SSH with private key
+ssh-add /path/to/private/key/key.pem
+
+
+
+# Run Ansbible Playbooks
+
+# Test ansible local connection on host to host using verbose logging
+ansible localhost -c local -m ping -vvv
+
+# Test ansible local connection on host to host using local inventory file hosts using verbose logging
+ansible -i hosts all -c local -m ping -vvv
+
+# Run ansbible playbook from client to host
+ansible-playbook -i hosts psb.yml
+
+# Run ansbible playbook from client to host using tags
+ansible-playbook -i hosts psb.yml --tags "installiib"
+
+# Run ansbile playbook on host using local connection
+ansible-playbook -i hosts -c local psb.yml
+
+# Run ansbile playbook on host using local connection with password prompt for root user (ensure executed playbook has entry "become: true")
+ansible-playbook -i hosts -c local psb.yml --ask-become-pass
+
+# Run ansible playbook with tags to execute only a specific task (here install IIB)
+ansible-playbook -i hosts -c local psb.yml --ask-become-pass --tags "installiib"
+
+# Run ansible playbook with tags to execute only a specific task (here install IIB) and verbose logging
+ansible-playbook -i hosts -c local psb.yml --ask-become-pass --tags "installiib" -vvv
+
+# Install both, IIB and MQ
+ansible-playbook -i hosts psb.yml -c local --ask-become-pass --tags "install,installiib"
+
+
+# Display all tasks or hosts for a certain stage, role, geography or tags
+ansible-playbook -i production webservers.yml --tags ntp --list-tasks
+ansible-playbook -i production webservers.yml --limit boston --list-hosts
+
+
+# Password vault
+
+# Create
+ansible-vault create vault.yml
+
+# Decrypt
+ansible-vault decrypt --ask-vault-pass vault.yml
+
+# Encrypt 
+ansible-vault encrypt vault.yml

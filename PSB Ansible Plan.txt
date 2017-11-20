@@ -1,0 +1,82 @@
+Installation und Konfiguration MQ und IIB mit Ansible Automatisierung bis 22.12:
+
+1) MQ und IIB
+
+a) must: Alles für was man root Rechte brauchen
+	o) Ansible internal tasks
+		DONE - creation of basic project structure
+		- usage of password vault
+	i) MQ Installation
+		DONE - create admin group
+		DONE - create admin user in MQ and IIB admin group
+		DONE - set kernel settings
+		DONE - file process settings
+		DONE - instalaltion of MQ binaries
+	ii) IIB Installation
+		DONE - create admin group
+		DONE - create admin user in MQ and IIB admin group
+		DONE - instalaltion of IIB binaries
+	iii) DONE MQ Installation verification
+	iv) DONE IIB Installation verification
+
+b) must: Konfiguration MQ Server MultiInstance
+	i) create multi-instance queue manager
+	ii) create listener
+		- echo "DEF LISTENER({{ mq.qmname.listener01 }}) TRPTYPE(TCP) PORT({{ mq.listener01port }}) DESCR('QM01 listener 01') CONTROL(QMGR) REPLACE" | runmqsc {{ mq.qmname }}
+	iii) create server connection channel
+		- echo "DEFINE CHL({{ mq.qmname.srvconnchannel01 }}) CHLTYPE(SVRCONN) TRPTYPE(TCP) DESCR('QM01 server connection channel 01') REPLACE" | runmqsc {{ mq.qmname }}
+	iv) enable MQTT service
+		- In "DAI MSB Installation and Configuration MQ.pdf" Kapitel "Enable MQTT"
+	v) create MQTT channel
+		- echo "DEFINE CHL({{ mq.qmname.mqttchannel01 }}) CHLTYPE(MQTT) TRPTYPE(TCP) PORT({{ mq.mqttport }}) MCAUSER('mqm') DESCR('MQTT channel') REPLACE" | runmqsc {{ mq.qmname }}
+
+c) must: Konfiguration IIB Server MultiInstance
+	i) create multi-instance integration node
+	ii) create integration server
+
+d) must: Setup Global Cache
+
+e) medium: Setup PKI MQ
+
+f) medium: Setup PKI IIB
+
+g) medium: HTTP Listener
+
+h) medium: IIB Web admin
+
+
+
+
+2) Installation Applikation und Erzeugen benötigter Objekte wäre "nice to have" aber ist notfalls manuell möglich.
+
+
+
+3) Installation Message Sight
+
+Notes:
+- MQ Circular Logging
+
+
+
+
+
+
+
+
+Naming:
+
+Namen der Queue Manager, Integration Nodes usw. des PSBs sind einheitlich nach dem folgenden Schema aufgebaut 				
+																
+8 Chars mit folgender Bedeutung: 								
+[Systemkennzeichen1][Systemkennzeichen2][Standort][Zone][Objekt][Stage][Node][Counter1] 					
+																
+Beispiel: 							Stellen 	Erläuterung 	Ausprägungen 					
+P 	11 	I 	Q 	D 	0 	0 										
+Systemkennzeichen 			1 	Systemkennzeichen 	P = PlantServiceBus 					
+	Standort 						2 	Werkskennziechen 	11 = Wolfsburg 	21 = Ingolstadt 	usw. 			
+		Zone 						1 	Netzwerkzone 	I = Intranet 	A = APZ 	C = Cloud 	P = Produktion 	F = FIS-Test 	usw.
+			Objekt 			1 	Konfigurationsobjekt 	Q = Queue Manager 	I = Integration Node 	D = Datenbank 			
+				Stage 			1 	Umgebung 	P = Produktion 	E = Education 	Q = Quality Assurance 	T = Test 	D = Development 	
+					Node 		1 	Cluster Node 	A = Primary Node 	B = Secondary Node 	0 = nicht geclustert 			
+						Counter 	1 	laufende Nummer 	0;1 = Integration Bus 	2;3;… = WebsphereMQ 				
+									8
