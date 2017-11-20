@@ -1,0 +1,10 @@
+---
+- name: install IIB
+  import_tasks: install_iib.yml
+  tags: 
+    - installiib
+
+- name: uninstall IIB
+  import_tasks: uninstall_iib.yml
+  tags: 
+    - uninstalliib

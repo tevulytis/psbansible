@@ -1,0 +1,22 @@
+---
+# This playbook verifies the IIB installation.
+
+- name: installation verification.
+  become: yes 
+  shell: |
+    cd "{{ iib.binaries_dir }}"
+    ./iib verify all
+  register: verification_result
+
+- name: info if installation verification was successful.
+  become: yes
+  debug:
+    msg: "Installation verification was successful!"
+  when: verification_result.stdout is defined and verification_result.stdout.find('mqsideletebroker VERIFY') != -1
+
+- name: fail if required directories are missing, otherwise skip fail.
+  become_user: yes 
+  fail:
+    msg: "Installation verification was NOT successful!"
+  when: verification_result.stdout is not defined or verification_result.stdout.find('mqsideletebroker VERIFY') == -1
+

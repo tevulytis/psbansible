@@ -1,0 +1,14 @@
+---
+# This playbook removes all IIB folders during uninstallation
+
+- name: delete IIB installation binaries folders 
+  become: yes
+  file:
+    path: "{{ iib.binaries_dir }}"
+    state: absent
+
+- name: delete IIB data folder
+  become: yes
+  file:
+    path: "{{ iib.data_dir }}"
+    state: absent

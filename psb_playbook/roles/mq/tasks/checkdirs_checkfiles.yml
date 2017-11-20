@@ -1,0 +1,15 @@
+---
+- name: "Check if required directories and files exist"
+  stat: path="{{ item }}"
+  register: initial_file_check
+  with_items:
+  - "{{ webspheremq_internal.install_archive_path }}"
+  become: yes
+
+#- name: "Fail when required directories do not exist"
+ # fail:
+  #  msg: "Required Installation File or Directory is missing: {{ item.item }}"
+  #when: "{{ item.stat.exists | bool}} == false"
+  #with_items: "{{ initial_file_check.results }}"
+
+...

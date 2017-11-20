@@ -1,0 +1,64 @@
+---
+# defaults file for websphere-mq - customize configuration parameters here
+#TODO: find solution to avoid '/home/centos/' (in favor of platform independency)
+#TODO: (see install_binaries.yml too) find out how to use wildcards in file names
+
+webspheremq:
+  user: mqm
+  group: mqm
+  #archive_dir is the directory containing the archive on the ansible MASTER (or host)
+  archive_dir: /tmp
+  unarchive_dir: /opt/temporary/
+  installation_dir: /opt/mqm/
+  rpm_fileglobs:
+  - MQSeriesRuntime-*.rpm
+  - MQSeriesServer-*.rpm
+  - MQSeriesSDK-*.rpm
+  - MQSeriesMan-*.rpm
+  - MQSeriesSamples-*.rpm
+  - MQSeriesJRE-*.rpm
+  - MQSeriesJava-*.rpm
+  - MQSeriesGSKit-*.rpm
+  - MQSeriesAMS-*.rpm
+  - MQSeriesAMQP-*.rpm
+  sysctl_settings:
+  - name: kernel.sem
+    value: 500 256000 250 1024
+  - name: kernel.shmmax
+    value: 268435456
+  - name: kernel.shmmni
+    value: 4096
+  - name: kernel.shmall
+    value: 2097152
+  - name: fs.file-max
+    value: 524288
+  - name: kernel.threads-max
+    value: 48000
+  - name: kernel.pid_max
+    value: 120000
+  version: 9.0.0.1
+  
+queuedata:
+  test_qmanager: QM01
+  test_queue: QUEUE.01
+
+webspheremq_log_directory: /var/mqm/log
+webspheremq_qmgrs_directory: /var/mqm/qmgrs
+
+webspheremq_internal:
+  install_archive_path: "{{ webspheremq.archive_dir }}/MQ_V9.0_F_LNX_ON_X86_64_EIMAGE.tar.gz"
+  required_directories:
+  - /opt/mqm
+  - /var/mqm
+  - "{{ webspheremq_log_directory }}"
+  - "{{ webspheremq_qmgrs_directory }}"
+  - "{{ webspheremq.unarchive_dir }}"
+  user_limits:
+  - domain: "{{ webspheremq.user }}"
+    type: "-"
+    item: "nofile"
+    value: "10240"
+  - domain: "{{  webspheremq.user }}"
+    type: "-"
+    item: "nproc"
+    value: "4096"

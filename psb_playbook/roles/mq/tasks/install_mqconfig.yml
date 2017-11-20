@@ -1,0 +1,6 @@
+---
+- name: Install bc dependency (for mqconfig)
+  package:
+    name: bc
+    state: present
+  become: yes

@@ -1,0 +1,16 @@
+---
+# This uninstalls the IIB
+
+#- name: stop IIB processes
+#  import_tasks: stopprocesses.yml
+
+- name: delete IIB folders
+  import_tasks: deletefolders.yml
+
+- name: remove IIB user
+  import_tasks: removeuser.yml
+
+- name: remove IIB group
+  import_tasks: removegroup.yml
+
+

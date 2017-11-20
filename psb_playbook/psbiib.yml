@@ -1,0 +1,6 @@
+# Role IIB
+
+- name: IIB role.
+  hosts: wolfsburg-VM02
+  roles:
+    - iib

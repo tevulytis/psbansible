@@ -1,0 +1,7 @@
+---
+# This playbook create a technical group for IIB
+
+- group:
+    name: "{{ webspheremq.group }}"
+    state: present
+  become: true

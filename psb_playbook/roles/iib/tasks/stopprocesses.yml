@@ -1,0 +1,6 @@
+---
+# This playbook stop all IIB processes running under the user IIB technical user
+
+- name: stop IIB processes 
+  become: true
+  shell: killall -KILL -u "{{ iib.user }}"

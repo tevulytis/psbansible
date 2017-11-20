@@ -1,0 +1,7 @@
+---
+# This playbook create a technical group for IIB
+
+- name: create IIB group 
+  group:
+    name: "{{ iib.group }}"
+  become: true

@@ -1,0 +1,6 @@
+# Role MQ
+
+- name: MQ role.
+  hosts: wolfsburg-VM02
+  roles:
+    - mq

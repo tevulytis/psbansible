@@ -1,0 +1,8 @@
+---
+# This playbook removed the technical group of IIB
+
+- name: remove IIB group
+  group:
+    name: "{{ iib.group }}" 
+    state: absent
+  become: true

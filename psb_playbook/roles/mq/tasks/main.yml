@@ -1,0 +1,16 @@
+---
+# main mq yaml
+
+- name: install MQ
+  import_tasks: install_mq.yml
+  tags: install
+  
+- name: verify MQ installation
+  import_tasks: verify_mq.yml
+  tags: verify
+
+- name: uninstall MQ
+  import_tasks: uninstall_mq.yml
+  tags: uninstall
+
+...

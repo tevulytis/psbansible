@@ -1,0 +1,10 @@
+---
+# This playbook creates required IIB directories.
+# DISCLAIMER: currently this playbook is only for test purposes! Required file systems are expected to be available for installation.
+
+- name: create IIB directories
+  become: yes 
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items: "{{ iib.required_directories }}"

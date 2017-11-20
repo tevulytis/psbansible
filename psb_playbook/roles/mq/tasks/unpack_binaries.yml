@@ -1,0 +1,12 @@
+---
+#unpack binaries
+
+- name: Ensure Install package is available
+  stat:
+    path: "{{ webspheremq_internal.install_archive_path }}"
+
+- name: Unarchive install archive
+  unarchive: src="{{ webspheremq_internal.install_archive_path }}" dest="{{ webspheremq.unarchive_dir }}" 
+  become: yes
+  
+...

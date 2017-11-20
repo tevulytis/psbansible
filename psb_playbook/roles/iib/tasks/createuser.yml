@@ -1,0 +1,8 @@
+---
+# This playbook create a technical user for IIB
+
+- name: create IIB user
+  user:
+    name: "{{ iib.user }}"
+    group: "{{ iib.group }}"
+  become: true

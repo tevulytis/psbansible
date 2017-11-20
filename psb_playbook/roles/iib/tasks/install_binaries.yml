@@ -1,0 +1,38 @@
+---
+# This playbook installs the IIB binaries.
+
+- name: unpack IIB installation binaries.
+  become: yes
+  unarchive:
+    src: "{{ iib.installation_dir }}/iib-{{ iib.version }}.tar.gz"
+    dest: "{{ iib.installation_dir }}"
+
+- name: cleanup IIB installation binaries archive.
+  become: yes
+  file: 
+    path: "{{ iib.installation_dir }}/iib-{{ iib.version }}.tar.gz"
+    state: absent
+
+- name: install IIB
+  become: yes
+  shell: | 
+    cd "{{ iib.binaries_dir }}"
+    ./iib make registry global accept license silently
+
+- name: set ownership of installed IIB binaries to IIB user and group.
+  become: yes
+  file: 
+    path: "{{ iib.binaries_dir }}"
+    state: directory
+    recurse: yes
+    owner: "{{ iib.user }}"
+    group: "{{ iib.group }}"
+
+- name: set ownership of IIB data directory to IIB user and group.
+  become: yes
+  file:
+    path: "{{ iib.data_dir }}"
+    state: directory
+    recurse: yes
+    owner: "{{ iib.user }}"
+    group: "{{ iib.group }}"
