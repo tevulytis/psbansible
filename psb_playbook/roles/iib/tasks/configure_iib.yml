@@ -1,0 +1,5 @@
+---
+# This playbook configures the IIB
+
+- name: create integration node
+  import_tasks: config_create_integration_node.yml

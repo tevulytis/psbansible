@@ -1,0 +1,10 @@
+---
+# this group contains IIB specific variables for the development environment
+
+ins:
+  in01: IN01
+  in02: IN02
+
+qms:
+  qm01: QM01
+  qm01: QM02

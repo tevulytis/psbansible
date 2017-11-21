@@ -2,5 +2,7 @@
 
 - name: IIB role.
   hosts: wolfsburg-VM02
+  pre_tasks: 
+    - include_vars: inventories/common/mainiib.yml
   roles:
     - iib

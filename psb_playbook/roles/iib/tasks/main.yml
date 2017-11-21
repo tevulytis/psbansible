@@ -8,3 +8,8 @@
   import_tasks: uninstall_iib.yml
   tags: 
     - uninstalliib
+
+- name: configure IIB
+  import_tasks: configure_iib.yml
+  tags:
+    - configureiib

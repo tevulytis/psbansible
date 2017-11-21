@@ -1,0 +1,20 @@
+---
+# defaults file for IIB
+
+iib:
+  version: "10.0.0.7"
+  installation_package_path: "/tmp/IIB_V10.0.0.7_LINUX_X86-64.tar.gz"
+  installation_package_unarchive_dir: /tmp
+  installation_package_unarchive_name: EAsmbl_image
+  installation_dir: /opt/ibm
+  binaries_dir: /opt/ibm/iib-10.0.0.7
+  data_dir: /var/mqsi
+  required_directories:
+    - /IIBHA/var/mqsi
+    - /var/mqsi
+    - /var/log/mqsi/messages
+    - /var/log/mqsi/errorhandling
+    - /opt/ibm
+  group: mqbrkrs
+  user: mqbrkr
+  userbashrcfile: /home/mqbrkr/.bashrc
