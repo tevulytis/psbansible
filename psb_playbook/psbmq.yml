@@ -1,6 +1,8 @@
 # Role MQ
 
 - name: MQ role.
-  hosts: wolfsburg-VM02
+  hosts: wolfsburg-VM01
+  pre_tasks:
+    - include_vars: inventories/common/mainmq.yml
   roles:
     - mq
