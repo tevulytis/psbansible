@@ -2,7 +2,7 @@
 # This playbook unpacks the IIB installation package.
 
 - name: unpack IIB installation package.
-#  become: yes
+  become: yes
   unarchive:
     src: "{{ iib.installation_package_path }}"
     dest: "{{ iib.installation_package_unarchive_dir }}"

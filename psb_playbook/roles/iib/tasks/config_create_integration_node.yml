@@ -1,10 +1,6 @@
 ---
 # This playbook creates an IIB integration node.
 
-#- name: include IIB vars
-#  include_vars:
-#    file: inventories/development/group_vars/iib.yml
-
 - name: create an integration node.
   become_user: "{{ iib.user }}" 
   shell: mqsicreatebroker "{{ ins.in01 }}" 
