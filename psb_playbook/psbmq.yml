@@ -3,6 +3,8 @@
 - name: MQ role.
   hosts: wolfsburg-VM01
   pre_tasks:
-    - include_vars: inventories/common/mainmq.yml
+    - include_vars: 
+        file: inventories/common/mainmq.yml
+      tags: [installmq,uninstallmq,configuremq]
   roles:
     - mq
