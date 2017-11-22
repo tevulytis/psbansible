@@ -20,7 +20,8 @@
   with_items: "{{ rpms.results }}"
   become: yes
   
-- file:
+- name: set ownership of installed MQ binaries to MQ user and group.
+  file:
     state: directory
     path: "{{ webspheremq.installation_dir }}"
     group: "{{ webspheremq.group }}"
