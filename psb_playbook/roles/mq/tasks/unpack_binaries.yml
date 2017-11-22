@@ -5,8 +5,14 @@
   stat:
     path: "{{ webspheremq_internal.install_archive_path }}"
 
-- name: Unarchive install archive
+- name: unpack MQ installation binaries
   unarchive: src="{{ webspheremq_internal.install_archive_path }}" dest="{{ webspheremq.unarchive_dir }}" 
   become: yes
+  
+- name: cleanup MQ installation binaries archive
+  file:
+    path: "{{ webspheremq.archive_dir }}"
+    state: absent
+  become: true
   
 ...
