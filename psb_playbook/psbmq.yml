@@ -5,6 +5,6 @@
   pre_tasks:
     - include_vars: 
         file: inventories/common/mainmq.yml
-      tags: [installmq,uninstallmq,configuremq]
+      tags: [installmq,uninstallmq,verifymq,configuremq]
   roles:
     - mq
