@@ -26,5 +26,8 @@
   
 - name: install MQ binaries
   import_tasks: install_binaries.yml
+  
+- name: verify correct MQ installation
+  import_tasks: verify_mq.yml
 
 ...

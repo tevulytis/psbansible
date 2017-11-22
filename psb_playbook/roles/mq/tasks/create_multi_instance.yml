@@ -1,0 +1,50 @@
+---
+- name: create in memory hosts and groups
+  hosts: all
+  tasks:
+    - name: set in-memory hosts (group 1)
+      register: gr1
+      add_host:
+        name: "{{ item.1 }}"
+        group: MQ01
+      with_indexed_items: "{{ ansible_play_hosts }}"
+      when: "item.0 < (ansible_play_hosts | length//2)"
+    
+    - name: set in-memory hosts (group 2)
+      add_host:
+        name: "{{ item.1 }}"
+        group: MQ02
+      with_indexed_items: "{{ ansible_play_hosts }}"
+      when: "item.0 >= (ansible_play_hosts | length//2)"
+
+- name: create multi-instance queue manager {{ queuedata.qmgr1 }} on host A
+  command: "crtmqm -md {{ webspheremq_qmgrs_directory }} -ld {{ webspheremq_log_directory }} {{ queuedata.qmgr1 }}"
+  
+- name: prepare creation of multi-instance queue manager {{ queuedata.qmgr1 }} on host B
+  command: "dspmqinf -o command {{ queuedata.qmgr1 }}"
+  #or: "command: dspmqinf QM01" for getting output in multiple lines
+  #TODO: use string separation and loop for storing values in different variables?
+  
+- name: create multi-instance queue manager {{ queuedata.qmgr1 }} on host B
+  command: addmqinf -v Name={{ queuedata.qmgr1 }} -v Directory={{ queuedata.qmgr1 }} -v Prefix={{ webspheremq_qmgrs_directory }} -v DataPath={{ webspheremq_qmgrs_directory }} {{ queuedata.qmgr1 }}
+  
+- name: start queue manager {{ queuedata.qmgr1 }} in multi-instance mode on host A
+  command: strmqm -x {{ queuedata.qmgr1 }}
+  
+#TODO: rename?
+- name: Observe the queue manager {{ queuedata.qmgr1 }} running in active mode on host A
+  command: dspmq -x
+  
+#TODO: any command here?
+- name: Start queue manager {{ queuedata.qmgr1 }} on host B. Observe the queue manager running in standby mode
+  command: echo ""
+  
+- name: Test HA scenario by stopping {{ queuedata.qmgr1 }} on host A
+  command: endmqm -s {{ queuedata.qmgr1 }}
+  
+- name: restart queue manager {{ queuedata.qmgr1 }} on host A
+  command: strmqm -x {{ queuedata.qmgr1 }}
+  
+  
+  
+  

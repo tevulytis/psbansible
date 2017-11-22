@@ -3,14 +3,18 @@
 
 - name: install MQ
   import_tasks: install_mq.yml
-  tags: install
+  tags: installmq
   
 - name: verify MQ installation
   import_tasks: verify_mq.yml
-  tags: verify
+  tags: verifymq
 
 - name: uninstall MQ
   import_tasks: uninstall_mq.yml
-  tags: uninstall
+  tags: uninstallmq
+  
+- name: create multi-instance QM
+  import_tasks: create_multi_instance.yml
+  tags: configuremq
 
 ...
