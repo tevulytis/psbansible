@@ -22,13 +22,13 @@ a) must: Alles für was man root Rechte brauchen
 b) must: Konfiguration MQ Server MultiInstance
 	i) create multi-instance queue manager
 	ii) create listener
-		- echo "DEF LISTENER({{ mq.qm01.listener01 }}) TRPTYPE(TCP) PORT({{ mq.qm01.listenerport01 }}) DESCR('{{ mq.qm01.listener01.description}}') CONTROL(QMGR) REPLACE" | runmqsc {{ mq.qm01 }}
+		- echo "DEF LISTENER({{ mq.qm01.listener01.name }}) TRPTYPE(TCP) PORT({{ mq.qm01.listenerport01.name }}) DESCR('{{ mq.qm01.listener01.description}}') CONTROL(QMGR) REPLACE" | runmqsc {{ mq.qm01 }}
 	iii) create server connection channel
-		- echo "DEFINE CHL({{ mq.qm01.srvconnchannel01 }}) CHLTYPE(SVRCONN) TRPTYPE(TCP) DESCR('{{ mq.qm01.srvconnchannel01.description}}') REPLACE" | runmqsc {{ mq.qm01 }}
+		- echo "DEFINE CHL({{ mq.qm01.srvconnchannel01.name }}) CHLTYPE(SVRCONN) TRPTYPE(TCP) DESCR('{{ mq.qm01.srvconnchannel01.description}}') REPLACE" | runmqsc {{ mq.qm01 }}
 	iv) enable MQTT service
 		- In "DAI MSB Installation and Configuration MQ.pdf" Kapitel "Enable MQTT"
 	v) create MQTT channel
-		- echo "DEFINE CHL({{ mq.qm01.mqttchannel01 }}) CHLTYPE(MQTT) TRPTYPE(TCP) PORT({{ mq.qm01.mqttport01 }}) MCAUSER('mqm') DESCR('MQTT channel') REPLACE" | runmqsc {{ mq.qm01 }}
+		- echo "DEFINE CHL({{ mq.qm01.mqttchannel01.name }}) CHLTYPE(MQTT) TRPTYPE(TCP) PORT({{ mq.qm01.mqttport01.name }}) MCAUSER('mqm') DESCR('MQTT channel') REPLACE" | runmqsc {{ mq.qm01 }}
         vi) create queue 
                 - echo "DEFINE QL({{ mq.qm01.queue001.name }}) DESCR('{{ mq.qm01.queue001.description }}') REPLACE" | runmqsc {{ mq.qm01 }}
         vii) create topic
