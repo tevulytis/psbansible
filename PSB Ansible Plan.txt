@@ -22,17 +22,27 @@ a) must: Alles für was man root Rechte brauchen
 b) must: Konfiguration MQ Server MultiInstance
 	i) create multi-instance queue manager
 	ii) create listener
-		- echo "DEF LISTENER({{ mq.qmname.listener01 }}) TRPTYPE(TCP) PORT({{ mq.listener01port }}) DESCR('QM01 listener 01') CONTROL(QMGR) REPLACE" | runmqsc {{ mq.qmname }}
+		- echo "DEF LISTENER({{ mq.qm01.listener01 }}) TRPTYPE(TCP) PORT({{ mq.qm01.listenerport01 }}) DESCR('{{ mq.qm01.listener01.description}}') CONTROL(QMGR) REPLACE" | runmqsc {{ mq.qm01 }}
 	iii) create server connection channel
-		- echo "DEFINE CHL({{ mq.qmname.srvconnchannel01 }}) CHLTYPE(SVRCONN) TRPTYPE(TCP) DESCR('QM01 server connection channel 01') REPLACE" | runmqsc {{ mq.qmname }}
+		- echo "DEFINE CHL({{ mq.qm01.srvconnchannel01 }}) CHLTYPE(SVRCONN) TRPTYPE(TCP) DESCR('{{ mq.qm01.srvconnchannel01.description}}') REPLACE" | runmqsc {{ mq.qm01 }}
 	iv) enable MQTT service
 		- In "DAI MSB Installation and Configuration MQ.pdf" Kapitel "Enable MQTT"
 	v) create MQTT channel
-		- echo "DEFINE CHL({{ mq.qmname.mqttchannel01 }}) CHLTYPE(MQTT) TRPTYPE(TCP) PORT({{ mq.mqttport }}) MCAUSER('mqm') DESCR('MQTT channel') REPLACE" | runmqsc {{ mq.qmname }}
+		- echo "DEFINE CHL({{ mq.qm01.mqttchannel01 }}) CHLTYPE(MQTT) TRPTYPE(TCP) PORT({{ mq.qm01.mqttport01 }}) MCAUSER('mqm') DESCR('MQTT channel') REPLACE" | runmqsc {{ mq.qm01 }}
+        vi) create queue 
+                - echo "DEFINE QL({{ mq.qm01.queue001.name }}) DESCR('{{ mq.qm01.queue001.description }}') REPLACE" | runmqsc {{ mq.qm01 }}
+        vii) create topic
+                - echo "DEFINE TOPIC({{ mq.qm01.topic01.name }}) TOPICSTR('{{ mq.qm01.topic01.string }}') REPLACE" | runmqsc {{ mq.qm01 }}
+        viii) create subscription
+                - echo "DEFINE SUB({{ mq.qm01.subscription01.name }}) TOPICOBJ({{ mq.qm01.topic01.name }}) PSPROP(RFH2) DEST({{ mq.qm01.queue001.name }}) DESTQMGR({{ mq.qm01 }}) REPLACE" | runmqsc {{ mq.qm01 }}
 
 c) must: Konfiguration IIB Server MultiInstance
 	i) create multi-instance integration node
 	ii) create integration server
+        iii) web admin
+        iv) logging redirection
+        v) HTTP
+        vi) HTTPS
 
 d) must: Setup Global Cache
 
