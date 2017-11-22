@@ -39,22 +39,27 @@ b) must: Konfiguration MQ Server MultiInstance
 c) must: Konfiguration IIB Server MultiInstance
 	i) create multi-instance integration node
 	ii) create integration server
-        iii) web admin
-        iv) logging redirection
-        v) HTTP
-        vi) HTTPS
 
-d) must: Setup Global Cache
+d) must: Setup IIB Global Cache
 
-e) medium: Setup PKI MQ
+e) medium: Setup MQ security
+        i) Setup PKI MQ
+        ii) Secure server connection channel
 
-f) medium: Setup PKI IIB
+f) medium: IIB Web admin
 
-g) medium: HTTP Listener
+g) medium: IIB HTTP
 
-h) medium: IIB Web admin
+h) medium: Setup IIB security 
+        i) Setup PKI IIB
+        ii) Secure IIB Web Admin
+        ii) Secure HTTP
 
+i) medium: IIB logging redirection
 
+j) medium: installation message sight 
+
+k) medium: setup message sight
 
 
 2) Installation Applikation und Erzeugen benötigter Objekte wäre "nice to have" aber ist notfalls manuell möglich.
