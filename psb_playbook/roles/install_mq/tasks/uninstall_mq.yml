@@ -1,0 +1,43 @@
+---
+#Uninstall WebSphere MQ
+#TODO: use 'package' module of ansible to ensure platform independence
+
+#does NOT correctly remove installed packages -> files are deleted, but packages are still registered as installed in yum
+- name: Uninstall packages
+  yum:
+    name: "{{ item }}"
+    state: absent
+    update_cache: yes
+  with_items: "{{ webspheremq.rpm_fileglobs }}"
+  become: true
+
+- name: Delete technical user for MQ
+  user: 
+    name: "{{ webspheremq.user }}"
+    state: absent
+  become: true
+
+- name: Delete technical group for MQ
+  group:
+    name: "{{ webspheremq.group }}"
+    state: absent
+  become: true
+
+- name: Delete RPM packages
+  file:
+    path: "{{ webspheremq.unarchive_dir }}MQServer/"
+    state: absent
+  become: true
+  
+- name: Delete MQ archive
+  file:
+    path: "{{ webspheremq.archive_dir }}"
+    state: absent
+  become: true
+
+- name: Delete MQ installation files
+  file:
+    path: "{{ webspheremq.installation_dir }}"
+    state: absent
+  become: true
+...

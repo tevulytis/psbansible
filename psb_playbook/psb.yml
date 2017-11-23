@@ -4,8 +4,11 @@
 # The list of executable tasks are within the role folders.
 # The execution of specific tasks e.g. installation are controlled using the tags mechanism of Ansible.
 
-- name: MQ tasks
-  import_playbook: psbmq.yml
+- name: MQ installation tasks
+  import_playbook: psbmqinstall.yml
+  
+- name: MQ configuration tasks (Multi instance configuration)
+  import_playbook: psbmqconfigure.yml
 
 - name: IIB tasks
   import_playbook: psbiib.yml
