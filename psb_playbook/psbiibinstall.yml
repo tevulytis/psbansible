@@ -1,0 +1,10 @@
+# Role IIB
+
+- name: IIB role.
+  hosts: wolfsburg-VM02
+  pre_tasks: 
+    - include_vars: 
+        file: inventories/common/mainiib.yml
+      tags: [installiib,uninstalliib]
+  roles:
+    - iibinstall

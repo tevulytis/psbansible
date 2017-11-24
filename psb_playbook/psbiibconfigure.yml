@@ -1,10 +1,10 @@
-# Role IIB
+# Role IIB configure
 
-- name: IIB role.
+- name: Role IIB configure.
   hosts: wolfsburg-VM02
   pre_tasks: 
     - include_vars: 
         file: inventories/common/mainiib.yml
-      tags: [installiib,uninstalliib,configureiib]
+      tags: [configureiib]
   roles:
-    - iib
+    - iibconfigure

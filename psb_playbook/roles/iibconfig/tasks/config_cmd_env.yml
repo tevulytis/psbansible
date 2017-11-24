@@ -3,9 +3,12 @@
 # For this the .bashrc of the user is extended with the execution of IIB mqsiprofile command at the EOF.
 # The command environmen will be set every time the IIB technical user logs in.
 
-- name: configure .bashrc of the IIB user to set command environment during login.
+- name: configure .bashrc of the IIB user to set command environment during every login.
   become_user: "{{ iib.user }}" 
   lineinfile:
-    path: "/home/mqbrkr/test.txt" #"{{ iib.userbashrcfile }}"
+    path: "{{ iib.userbashrcfile }}"
     state: present
-    line: ". /opt/ibm/iib-{{ iib.version }}/server/bin/mqsiprofile"
+    line: "{{ item.line }}"
+  with_items:
+    - { line: "# Set IIB command line environment"}
+    - { line: ". /opt/ibm/iib-{{ iib.version }}/server/bin/mqsiprofile" }

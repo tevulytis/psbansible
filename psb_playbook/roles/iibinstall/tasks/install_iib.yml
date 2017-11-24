@@ -19,9 +19,5 @@
 - name: install IIB binaries
   import_tasks: install_binaries.yml
 
-# Not functional yet. TODO: get running.
-#- name: configure IIB command environment
-#  import_tasks: config_cmd_env.yml
-
 - name: installation verification
   import_tasks: installation_verification.yml

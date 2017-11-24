@@ -1,0 +1,10 @@
+---
+# This playbook configures the IIB
+
+#- name: set IIB command environment
+#  shell: . /opt/ibm/iib-10.0.0.7/server/bin/mqsiprofile
+#  shell: ". {{ iib.binaries_dir }}/server/bin/mqsiprofile"
+
+- name: create integration node
+#  shell: mqsicreatebroker "{{ ins.in01 }}"
+  import_tasks: config_create_integration_node.yml

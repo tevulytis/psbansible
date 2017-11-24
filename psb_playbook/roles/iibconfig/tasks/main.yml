@@ -1,0 +1,8 @@
+---
+
+- name: configure IIB
+  become: yes
+  become_user: "{{ iib.user }}"
+  import_tasks: configure_iib.yml
+  tags:
+    - configureiib
