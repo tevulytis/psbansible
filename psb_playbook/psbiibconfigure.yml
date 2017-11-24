@@ -1,10 +1,11 @@
-# Role IIB configure
+# Play role IIB configure
 
-- name: Role IIB configure.
-  hosts: wolfsburg-VM02
+- name: Play role IIB configure.
+  hosts: vm02node
   pre_tasks: 
     - include_vars: 
         file: inventories/common/mainiib.yml
-      tags: [configureiib]
   roles:
-    - iibconfigure
+    - role: iibconfigbase
+      become: yes
+      become_user: "{{ iib.user }}"

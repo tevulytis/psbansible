@@ -1,11 +1,26 @@
 ---
+# Runs all role tasks
 
-- name: install IIB
-  import_tasks: install_iib.yml
-  tags: 
-    - installiib
+- name: create IIB group
+  import_tasks: creategroup.yml
 
-- name: uninstall IIB
-  import_tasks: uninstall_iib.yml
-  tags: 
-    - uninstalliib
+- name: create IIB user
+  import_tasks: createuser.yml
+
+- name: create IIB directories
+  import_tasks: createdirectories.yml
+
+- name: unpack IIB binaries
+  import_tasks: unpack_binaries.yml
+
+- name: installation pre-check
+  import_tasks: installation_precheck.yml
+
+- name: install IIB binaries
+  import_tasks: install_binaries.yml
+
+- name: installation verification
+  import_tasks: installation_verification.yml
+
+- name: configure .bashrc to set IIB command environment
+  import_tasks: set_cmd_env.yml

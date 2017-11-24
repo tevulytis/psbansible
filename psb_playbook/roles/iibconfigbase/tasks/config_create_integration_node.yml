@@ -2,5 +2,4 @@
 # This playbook creates an IIB integration node.
 
 - name: create an integration node.
-#  become_user: "{{ iib.user }}" 
   shell: mqsicreatebroker "{{ ins.in01 }}" 
