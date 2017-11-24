@@ -1,0 +1,9 @@
+# Role MQ
+
+- name: role for configuring MQ
+  pre_tasks:
+    - include_vars: 
+        file: inventories/common/mainmq.yml
+      tags: [configuremq]
+  roles:
+    - configure_mq
