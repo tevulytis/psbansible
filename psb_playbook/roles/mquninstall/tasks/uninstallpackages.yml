@@ -1,0 +1,8 @@
+#TODO: does NOT correctly remove installed packages -> files are deleted, but packages are still registered as installed in yum
+- name: Uninstall packages
+  yum:
+    name: "{{ item }}"
+    state: absent
+    update_cache: yes
+  with_items: "{{ webspheremq.rpm_fileglobs }}"
+  become: true

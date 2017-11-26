@@ -1,15 +1,31 @@
 ---
 # main mq installation yaml
 
-- name: install MQ
-  import_tasks: install_mq.yml
-  tags: installmq
-  
-- name: verify MQ installation
-  import_tasks: verify_mq.yml
-  tags: verifymq
+- name: check if required directories and files exist
+  import_tasks: checkdirs_checkfiles.yml
 
-- name: uninstall MQ
-  import_tasks: uninstall_mq.yml
-  tags: uninstallmq
+- name: create MQ technical group
+  import_tasks: creategroup.yml
+
+- name: create MQ technical user
+  import_tasks: createuser.yml
+  
+- name: Ensure filesystem directories are available
+  import_tasks: check_filesystem.yml
+
+- name: set kernel parameters
+  import_tasks: set_kernel_params.yml
+  
+- name: set file and process settings
+  import_tasks: file_process_settings.yml
+  
+- name: install mqconfig
+  import_tasks: install_mqconfig.yml
+  
+- name: unpack MQ binaries
+  import_tasks: unpack_binaries.yml
+  
+- name: install MQ binaries
+  import_tasks: install_binaries.yml
+  
 ...

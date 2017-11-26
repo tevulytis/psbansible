@@ -1,0 +1,6 @@
+---
+- name: Delete technical user for MQ
+  user: 
+    name: "{{ webspheremq.user }}"
+    state: absent
+  become: true

@@ -13,7 +13,7 @@
   command: "crtmqm -md {{ webspheremq_qmgrs_directory }} -ld {{ webspheremq_log_directory }} {{ queuedata.qmgr1 }}"
   
   #TODO: obsolute as we have all the data already?
-#- name: prepare creation of multi-instance queue manager {{ queuedata.qmgr1 }} on host B
+#- name: prepare creation1 of multi-instance queue manager {{ queuedata.qmgr1 }} on host B
   #hosts: MQ02
   #command: "dspmqinf -o command {{ queuedata.qmgr1 }}"
   #or: "command: dspmqinf QM01" for getting output in multiple lines

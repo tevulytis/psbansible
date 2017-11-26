@@ -1,0 +1,6 @@
+---
+- name: Delete technical group for MQ
+  group:
+    name: "{{ webspheremq.group }}"
+    state: absent
+  become: true

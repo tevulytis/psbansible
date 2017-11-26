@@ -1,7 +1,7 @@
 ---
 #install binaries
 #TODO: 'yum' module is platform specific, maybe use 'package' module instead (if possible) or use conditional (check for platform)
-#TODO: 'find' module instead of using 'shell' and ls might suit better. Installation loop probably needs to use with_dict over results.files then
+#TODO: 'find' module instead of using 'shell' + ls might suit better. Installation loop probably needs to use with_dict over results.files then
 
 - name: Accept License
   shell: chdir="{{ webspheremq.unarchive_dir }}MQServer/" ./mqlicense.sh -accept
@@ -19,6 +19,12 @@
     state: present
   with_items: "{{ rpms.results }}"
   become: yes
+  
+- name: cleanup rpm packages
+  file:
+    path: "{{ webspheremq.unarchive_dir }}MQServer/"
+    state: absent
+  become: true
   
 - name: set ownership of installed MQ binaries to MQ user and group.
   file:

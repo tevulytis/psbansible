@@ -1,0 +1,7 @@
+---
+- name: remove MQ installation files and binaries   
+  file:
+    path: "{{ webspheremq.installation_dir }}"
+    state: absent
+  become: true
+...

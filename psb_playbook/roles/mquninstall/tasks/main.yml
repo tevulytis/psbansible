@@ -1,0 +1,29 @@
+---
+- name: stop all processes of MQ user
+  import_tasks: stopprocesses.yml
+  tags: uninstallmq
+  
+- name: uninstall MQ packages
+  import_tasks: uninstallpackages.yml
+  tags: uninstallmq
+  
+- name: remove MQ archive with installation directories
+  import_tasks: removearchive.yml
+  tags: uninstallmq
+  
+- name: remove MQ rpm packages
+  import_tasks: removepackages.yml
+  tags: uninstallmq
+
+- name: remove binaries
+  import_tasks: removebinaries.yml
+  tags: uninstallmq
+  
+- name: remove user {{ mq.user }}
+  import_tasks: removeuser.yml
+  tags: uninstallmq
+  
+- name: remove group {{ mq.group }}
+  import_tasks: removegroup.yml
+  tags: uninstallmq
+  

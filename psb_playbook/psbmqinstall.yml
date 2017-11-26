@@ -1,8 +1,6 @@
-# Role MQ
-
-- name: install MQ role.
+- name: install MQ
   #TODO: change hosts declaration as it is only for testing purposes
-  hosts: wolfsburg-VM01
+  hosts: vm01node
   pre_tasks:
     - include_vars: 
         file: inventories/common/mainmq.yml
