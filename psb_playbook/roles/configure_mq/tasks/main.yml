@@ -1,5 +1,0 @@
-#main MQ multi instance configuration yml
-
-- name: create multi-instance QM
-  import_tasks: create_multi_instance.yml
-  tags: configuremq

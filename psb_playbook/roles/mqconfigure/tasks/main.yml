@@ -1,0 +1,9 @@
+#main MQ multi instance configuration yml
+
+- name: create multi-instance QM on one host (a)
+  import_tasks: create_multi_instance1.yml
+  tags: configuremq
+  
+- name: create multi-instance QM on partner host (b)
+  import_tasks: create_multi_instance2.yml
+  tags: configuremq

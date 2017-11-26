@@ -6,4 +6,4 @@
         file: inventories/common/mainmq.yml
       tags: [configuremq]
   roles:
-    - configure_mq
+    - mqconfigure
