@@ -4,6 +4,7 @@
 # The command environmen will be set every time the IIB technical user logs in.
 
 - name: configure .bashrc of the IIB user to set command environment during every login.
+  become: yes
   become_user: "{{ iib.user }}" 
   lineinfile:
     path: "{{ iib.userbashrcfile }}"

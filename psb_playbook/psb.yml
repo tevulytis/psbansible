@@ -10,5 +10,8 @@
 - name: MQ configuration tasks (Multi instance configuration)
   import_playbook: psbmqconfigure.yml
 
-- name: IIB tasks
-  import_playbook: psbiib.yml
+- name: IIB installation tasks
+  import_playbook: psbiibinstall.yml
+
+- name: IIB configuration tasks
+  import_playbook: psbiibconfigure.yml

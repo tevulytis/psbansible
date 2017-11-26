@@ -1,9 +1,9 @@
-# Play IIB install
+# Play role IIB uninstall
 
-- name: Play IIB install role.
+- name: Play role IIB uninstall.
   hosts: vm02node
   pre_tasks: 
     - include_vars: 
         file: inventories/common/mainiib.yml
   roles:
-    - iibinstall
+    - iibuninstall

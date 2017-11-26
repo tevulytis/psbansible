@@ -3,12 +3,13 @@
 [local]
 localhost
 
-[wolfsburg-VM01]
+[wolfsburg-iib]
 vm01node ansible_port=22 ansible_host=35.158.18.78 ansible_user=centos
-
-[wolfsburg-VM02]
 vm02node ansible_port=22 ansible_host=18.194.168.113 ansible_user=centos
 
+[wolfsburg-ms]
+# tbd
+
 [wolfsburg:children]
-wolfsburg-VM01
-wolfsburg-VM02
+wolfsburg-iib
+wolfsburg-ms
