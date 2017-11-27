@@ -1,6 +1,6 @@
 ---
 - name: Delete technical user for MQ
   user: 
-    name: "{{ mq.user }}"
+    name: "{{ common.mq.user }}"
     state: absent
   become: true

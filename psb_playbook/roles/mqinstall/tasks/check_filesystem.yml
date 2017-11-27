@@ -3,8 +3,8 @@
   file:
     path: "{{ item }}"
     state: directory
-    owner: "{{ mq.user }}"
-    group: "{{ mq.group }}"
-  with_dict: "{{ mq.directories }}"
+    owner: "{{ common.mq.user }}"
+    group: "{{ common.mq.group }}"
+  with_dict: "{{ common.mq.directories }}"
   become: true
 ...

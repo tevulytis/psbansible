@@ -4,5 +4,5 @@
     name: "{{ item }}"
     state: absent
     update_cache: yes
-  with_items: "{{ mq.rpm_files }}"
+  with_items: "{{ common.mq.rpm_files }}"
   become: true

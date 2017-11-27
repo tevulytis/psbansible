@@ -2,6 +2,6 @@
 # This playbook create a technical group for IIB
 
 - group:
-    name: "{{ mq.group }}"
+    name: "{{ common.mq.group }}"
     state: present
   become: true

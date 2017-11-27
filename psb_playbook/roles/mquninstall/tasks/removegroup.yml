@@ -1,6 +1,6 @@
 ---
 - name: Delete technical group for MQ
   group:
-    name: "{{ mq.group }}"
+    name: "{{ common.mq.group }}"
     state: absent
   become: true

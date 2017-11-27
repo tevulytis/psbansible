@@ -15,11 +15,11 @@
   import_tasks: removebinaries.yml
   tags: uninstallmq
   
-- name: remove user {{ mq.user }}
+- name: remove user {{ common.mq.user }}
   import_tasks: removeuser.yml
   tags: uninstallmq
   
-- name: remove group {{ mq.group }}
+- name: remove group {{ common.mq.group }}
   import_tasks: removegroup.yml
   tags: uninstallmq
   

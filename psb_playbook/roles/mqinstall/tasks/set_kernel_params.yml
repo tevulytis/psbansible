@@ -9,6 +9,6 @@
     state: present
     sysctl_set: yes
     reload: yes
-  with_items: "{{ mq.settings.sysctl_settings }}"
+  with_items: "{{ common.mq.settings.sysctl_settings }}"
   become: yes    
 ...

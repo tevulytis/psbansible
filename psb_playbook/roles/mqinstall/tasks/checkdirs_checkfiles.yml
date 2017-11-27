@@ -4,7 +4,7 @@
   stat: path="{{ item }}"
   register: initial_file_check
   with_items:
-  - "{{ mq.installation_archive_path }}"
+  - "{{ common.mq.directories.installation_archive_path }}"
   become: yes
 
 #- name: "Fail when required directories do not exist"

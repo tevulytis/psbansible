@@ -1,9 +1,9 @@
 ---
 # Create technical user for MQ
 - user: 
-    name: "{{ mq.user }}"
+    name: "{{ common.mq.user }}"
     comment: "MQ administrative user"
-    group: "{{ mq.group }}"
+    group: "{{ common.mq.group }}"
     state: present
   become: true
 ...

@@ -1,6 +1,6 @@
 ---
 - name: Delete RPM packages
   file:
-    path: "{{ mq.directories.unarchive_dir }}MQServer/"
+    path: "{{ common.mq.directories.unarchive_dir }}MQServer/"
     state: absent
   become: true

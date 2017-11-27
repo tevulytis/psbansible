@@ -1,63 +1,66 @@
 ---
 # defaults file for websphere-mq - customize configuration parameters here
 
-mq:
-  version: 9.0.0.1
-  user: mqm
-  group: mqm
-  directories:
-    #installation_archive_path is the archive's path on controlling machine (which is executing ansible)
-    installation_archive_path: /tmp/MQ_V9.0_F_LNX_ON_X86_64_EIMAGE.tar.gz
-    unarchive_dir: /opt/temporary/
-    installation_dir: /opt/mqm/
-    log_dir: /var/mqm/log
-    qmgrs_dir: /var/mqm/qmgrs
-    required:
-    - /opt/mqm
-    - /var/mqm
-    
-  settings:
-    sysctl_settings:
-    - name: kernel.sem
-      value: 500 256000 250 1024
-    - name: kernel.shmmax
-      value: 268435456
-    - name: kernel.shmmni
-      value: 4096
-    - name: kernel.shmall
-      value: 2097152
-    - name: fs.file-max
-      value: 524288
-    - name: kernel.threads-max
-      value: 48000
-    - name: kernel.pid_max
-      value: 120000
+common:
+  mq:
+    version: 9.0.0.1
+    user: mqm
+    group: mqm
+    directories:
+      #installation_archive_path is the archive's path on controlling machine (which is executing ansible)
+      installation_archive_path: /tmp/MQ_V9.0_F_LNX_ON_X86_64_EIMAGE.tar.gz
+      unarchive_dir: /opt/temporary/
+      installation_dir: /opt/mqm/
+      log_dir: /var/mqm/log
+      qmgrs_dir: /var/mqm/qmgrs
+      required:
+      - /opt/mqm
+      - /var/mqm
+        
+    settings:
+      sysctl_settings:
+        - name: kernel.sem
+          value: 500 256000 250 1024
+        - name: kernel.shmmax
+          value: 268435456
+        - name: kernel.shmmni
+          value: 4096
+        - name: kernel.shmall
+          value: 2097152
+        - name: fs.file-max
+          value: 524288
+        - name: kernel.threads-max
+          value: 48000
+        - name: kernel.pid_max
+          value: 120000
+          
+        user_limits:
+        - domain: "{{ mq.user }}"
+          type: "-"
+          item: "nofile"
+          value: "10240"
+        - domain: "{{  mq.user }}"
+          type: "-"
+          item: "nproc"
+          value: "4096"
+          
+    #state the packages to install
+    rpm_files:
+    - MQSeriesRuntime-*.rpm
+    - MQSeriesServer-*.rpm
+    - MQSeriesSDK-*.rpm
+    - MQSeriesMan-*.rpm
+    - MQSeriesSamples-*.rpm
+    - MQSeriesJRE-*.rpm
+    - MQSeriesJava-*.rpm
+    - MQSeriesGSKit-*.rpm
+    - MQSeriesAMS-*.rpm
+    - MQSeriesAMQP-*.rpm
       
-    user_limits:
-    - domain: "{{ webspheremq.user }}"
-      type: "-"
-      item: "nofile"
-      value: "10240"
-    - domain: "{{  webspheremq.user }}"
-      type: "-"
-      item: "nproc"
-      value: "4096"
+    qmgrs:
+      test_qmanager: QM01
+      primary_qmgr: QM01
+      secondary_qmgr: QM02
       
-  #state the packages to install here
-  rpm_files:
-  - MQSeriesRuntime-*.rpm
-  - MQSeriesServer-*.rpm
-  - MQSeriesSDK-*.rpm
-  - MQSeriesMan-*.rpm
-  - MQSeriesSamples-*.rpm
-  - MQSeriesJRE-*.rpm
-  - MQSeriesJava-*.rpm
-  - MQSeriesGSKit-*.rpm
-  - MQSeriesAMS-*.rpm
-  - MQSeriesAMQP-*.rpm
-  
-  test_qmanager: QM01
-  test_queue: QUEUE.01
-  
-  qmgr1: QM01
-  qmgr2: QM02
+    queues:
+      test_queue: QUEUE.01

@@ -3,4 +3,4 @@
 
 - name: stop MQ processes 
   become: true
-  shell: "killall -KILL -u {{ mq.user }}"
+  shell: "killall -KILL -u {{ common.mq.user }}"
