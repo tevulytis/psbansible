@@ -9,6 +9,6 @@
     state: present
     sysctl_set: yes
     reload: yes
-  with_items: "{{ webspheremq.sysctl_settings }}"
+  with_items: "{{ mq.settings.sysctl_settings }}"
   become: yes    
 ...

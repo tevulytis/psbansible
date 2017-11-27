@@ -4,5 +4,5 @@
     name: "{{ item }}"
     state: absent
     update_cache: yes
-  with_items: "{{ webspheremq.rpm_fileglobs }}"
+  with_items: "{{ mq.rpm_files }}"
   become: true

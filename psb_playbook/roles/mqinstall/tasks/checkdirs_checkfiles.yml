@@ -1,9 +1,10 @@
 ---
+#TODO: rework on fail & condition
 - name: "Check if required directories and files exist"
   stat: path="{{ item }}"
   register: initial_file_check
   with_items:
-  - "{{ webspheremq_internal.install_archive_path }}"
+  - "{{ mq.installation_archive_path }}"
   become: yes
 
 #- name: "Fail when required directories do not exist"

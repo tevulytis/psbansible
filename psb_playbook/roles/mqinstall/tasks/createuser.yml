@@ -1,9 +1,9 @@
 ---
 # Create technical user for MQ
 - user: 
-    name: "{{ webspheremq.user }}"
+    name: "{{ mq.user }}"
     comment: "MQ administrative user"
-    group: "{{ webspheremq.group }}"
+    group: "{{ mq.group }}"
     state: present
   become: true
 ...

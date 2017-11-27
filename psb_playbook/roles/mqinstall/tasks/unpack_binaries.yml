@@ -3,15 +3,15 @@
 
 - name: Ensure Install package is available
   stat:
-    path: "{{ webspheremq_internal.install_archive_path }}"
+    path: "{{ mq.directories.installation_archive_path }}"
 
 - name: unpack MQ installation binaries
-  unarchive: src="{{ webspheremq_internal.install_archive_path }}" dest="{{ webspheremq.unarchive_dir }}" 
+  unarchive: src="{{ mq.directories.installation_archive_path }}" dest="{{ mq.directories.unarchive_dir }}" 
   become: yes
   
 - name: cleanup MQ installation binaries archive
   file:
-    path: "{{ webspheremq.archive_dir }}"
+    path: "{{ mq.directories.archive_dir }}"
     state: absent
   become: true
   

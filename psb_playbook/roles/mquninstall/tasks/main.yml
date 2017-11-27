@@ -7,10 +7,6 @@
   import_tasks: uninstallpackages.yml
   tags: uninstallmq
   
-- name: remove MQ archive with installation directories
-  import_tasks: removearchive.yml
-  tags: uninstallmq
-  
 - name: remove MQ rpm packages
   import_tasks: removepackages.yml
   tags: uninstallmq

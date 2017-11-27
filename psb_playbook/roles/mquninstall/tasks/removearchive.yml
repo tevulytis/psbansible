@@ -1,6 +1,0 @@
----
-- name: Delete MQ archive
-  file:
-    path: "{{ webspheremq.archive_dir }}"
-    state: absent
-  become: true

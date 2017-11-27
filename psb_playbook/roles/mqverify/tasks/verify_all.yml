@@ -9,10 +9,10 @@
 - name: check results of mqversion
   fail:
     msg: "Wrong version of MQ. Desired version is: {{ webspheremq.version }}, installed is {{ mqversion.stdout_lines[1] }}"
-  when: "not (webspheremq.version in mqversion.stdout_lines[1])"
+  when: "not (mq.version in mqversion.stdout_lines[1])"
     
 - name: check that os parameters are met
-  command: "mqconfig -v {{ webspheremq.version }}"
+  command: "mqconfig -v {{ mq.version }}"
   register: mqconfig
   
 - name: check the results of mqconfig, fail if system requirements are not met
@@ -22,61 +22,61 @@
   with_items: "{{ mqconfig.stdout_lines }}"
 
 - name: create queue manager
-  command: "crtmqm {{ queuedata.test_qmanager }}"
+  command: "crtmqm {{ mq.test_qmanager }}"
   register: create_mqm
 
 - name: check if creation of queue manager was successful
   fail:
-    msg: "Creation of the test queue manager {{ queuedata.test_qmanager }} failed"
+    msg: "Creation of the test queue manager {{ mq.test_qmanager }} failed"
   when: not (("IBM MQ queue manager created." in create_mqm.stderr) and ("Setup completed." in create_mqm.stderr))
 
 - name: start queue manager
-  command: "strmqm {{ queuedata.test_qmanager }}"
+  command: "strmqm {{ mq.test_qmanager }}"
   register: start_mqm
 
 - name: check if starting queue manager was successful
   fail:
-    msg: "Starting the test queue manager {{ queuedata.test_qmanager }} failed" 
-  when: not ("IBM MQ queue manager '" ~ queuedata.test_qmanager ~ "' started" in start_mqm.stderr)
+    msg: "Starting the test queue manager {{ mq.test_qmanager }} failed" 
+  when: not ("IBM MQ queue manager '" ~ mq.test_qmanager ~ "' started" in start_mqm.stderr)
   
 - name: create test queue
-  shell: 'printf "DEFINE QL({{ queuedata.test_queue }})" | runmqsc {{ queuedata.test_qmanager }}'
+  shell: 'printf "DEFINE QL({{ mq.test_queue }})" | runmqsc {{ mq.test_qmanager }}'
   register: create_queue
   
 - name: check if creating the test queue was successful
   fail:
-    msg: "Creating the test queue {{ queuedata.test_queue }} with test queue manager {{ queuedata.test_qmanager }} failed"
+    msg: "Creating the test queue {{ mq.test_queue }} with test queue manager {{ mq.test_qmanager }} failed"
   when: not ("IBM MQ queue created." in create_queue.stdout_lines[5]) and ("No commands have a syntax error.\nAll valid MQSC commands were processed." in create_queue.stdout)
   
 - name: put a message to the test queue (using sample app)
-  shell: "printf '%s\n\n' testmsg | {{ webspheremq.installation_dir }}samp/bin/amqsput {{ queuedata.test_queue }} {{ queuedata.test_qmanager }}"
+  shell: "printf '%s\n\n' testmsg | {{ mq.directories.installation_dir }}samp/bin/amqsput {{ mq.test_queue }} {{ mq.test_qmanager }}"
   register: testput_message
   
 #need to check the put or not?
 - name: get a message from the test queue (using sample app)
-  command: "{{ webspheremq.installation_dir }}samp/bin/amqsget {{ queuedata.test_queue }} {{ queuedata.test_qmanager }}"
+  command: "{{ mq.directories.installation_dir }}samp/bin/amqsget {{ mq.test_queue }} {{ mq.test_qmanager }}"
   register: testget_message
   
 - name: check if getting a message from the test queue was successful
   fail:
-    msg: "Getting a message from the test queue {{ queuedata.test_queue }} with test queue manager {{ queuedata.test_qmanager }} failed"
+    msg: "Getting a message from the test queue {{ mq.test_queue }} with test queue manager {{ mq.test_qmanager }} failed"
   when: not (testget_message.stdout_lines[1] == 'message <testmsg>')
   
 - name: stop created test queue manager
-  command: "endmqm {{ queuedata.test_qmanager }}"
+  command: "endmqm {{ mq.test_qmanager }}"
   register: stop_mqm
 
 #TODO: watch this condition while testing - might be very unstable due to carriage return (\n)
 - name: check if stopping the queue manager was successful
   fail:
-    msg: "Stopping the test queue manager {{ queuedata.test_qmanager }} failed"
+    msg: "Stopping the test queue manager {{ mq.test_qmanager }} failed"
   when: "not ('Quiesce request accepted. The queue manager will stop when all outstanding work\nis complete.' in stop_mqm.stderr)"
   
 - name: delete created test queue manager
-  command: "dltmqm {{ queuedata.test_qmanager }}"
+  command: "dltmqm {{ mq.test_qmanager }}"
   register: delete_mqm
 
 - name: check if deletion of queue manager was successful
   fail:
-    msg: "Deleting the test queue manager {{ queuedata.test_qmanager }} failed"
-  when: not (delete_mqm.stderr_lines[0] == "IBM MQ queue manager '" ~ queuedata.test_qmanager ~ "' deleted.")
+    msg: "Deleting the test queue manager {{ mq.test_qmanager }} failed"
+  when: not (delete_mqm.stderr_lines[0] == "IBM MQ queue manager '" ~ mq.test_qmanager ~ "' deleted.")
