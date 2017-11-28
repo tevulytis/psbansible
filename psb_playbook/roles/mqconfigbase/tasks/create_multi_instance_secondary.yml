@@ -1,0 +1,30 @@
+---
+- name: create multi-instance queue manager {{ common.mq.qmgrs.primary_qmgr }} on host A
+  hosts: MQ01
+  command: "crtmqm -md {{ common.mq.directories.qmgrs_dir }} -ld {{ common.mq.directories.log_dir }} {{ common.mq.qmgrs.primary_qmgr }}"
+  
+- name: create multi-instance queue manager {{ common.mq.qmgrs.primary_qmgr }} on host B
+  hosts: MQ01
+  command: "addmqinf -v Name={{ common.mq.qmgrs.primary_qmgr }} -v Directory={{ common.mq.qmgrs.primary_qmgr }} -v Prefix={{ common.mq.directories.qmgrs_dir }} -v DataPath={{ common.mq.directories.qmgrs_dir }}"
+  
+- name: start queue manager {{ common.mq.qmgrs.primary_qmgr }} in multi-instance mode on host A
+  hosts: MQ02
+  command: "strmqm -x {{ common.mq.qmgrs.primary_qmgr }}"
+  
+#TODO: rename?
+- name: Observe the queue manager {{ common.mq.qmgrs.primary_qmgr }} running in active mode on host A
+  hosts: MQ02
+  command: dspmq -x
+  
+#TODO: any command here?
+- name: Start queue manager {{ common.mq.qmgrs.primary_qmgr }} on host B. Observe the queue manager running in standby mode
+  hosts: MQ01
+  command: "strmqm -x {{ common.mq.qmgrs.primary_qmgr }}"
+  
+- name: Test HA scenario by stopping {{ common.mq.qmgrs.primary_qmgr }} on host A
+  hosts: MQ02
+  command: "endmqm -s {{ common.mq.qmgrs.primary_qmgr }}"
+  
+- name: restart queue manager {{ common.mq.qmgrs.primary_qmgr }} on host A
+  hosts: MQ02
+  command: "strmqm -x {{ common.mq.qmgrs.primary_qmgr }}"
