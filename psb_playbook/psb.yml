@@ -17,4 +17,4 @@
   import_playbook: psbiibinstall.yml
 
 - name: IIB configuration tasks
-  import_playbook: psbiibconfigure.yml
+  import_playbook: psbiibconfigbase.yml

@@ -7,7 +7,7 @@
   become: yes
   become_user: "{{ iib.user }}" 
   lineinfile:
-    path: "{{ iib.userbashrcfile }}"
+    path: "{{ iib.userbashprofilefile }}"
     state: present
     line: "{{ item.line }}"
   with_items:

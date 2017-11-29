@@ -2,5 +2,6 @@
 # Execute all role tasks
 
 - name: create integration node
+  become: yes
   become_user: "{{ iib.user }}"
   import_tasks: config_create_integration_node.yml

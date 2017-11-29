@@ -4,5 +4,6 @@
 - name: create IIB user
   user:
     name: "{{ iib.user }}"
+    shell: /bin/bash
     group: "{{ iib.group }}"
   become: true

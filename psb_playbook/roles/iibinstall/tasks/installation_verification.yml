@@ -14,7 +14,7 @@
     msg: "Installation verification was successful!"
   when: verification_result.stdout is defined and verification_result.stdout.find('mqsideletebroker VERIFY') != -1
 
-- name: fail if required directories are missing, otherwise skip fail.
+- name: fail if verification result is not found, otherwise skip fail.
   become_user: yes 
   fail:
     msg: "Installation verification was NOT successful!"
