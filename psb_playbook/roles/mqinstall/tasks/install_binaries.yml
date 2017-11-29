@@ -24,7 +24,7 @@
   file:
     path: "{{ common.mq.directories.unarchive_dir }}MQServer/"
     state: absent
-  become: true
+  become: yes
   
 - name: set ownership of installed MQ binaries to MQ user and group.
   file:
@@ -33,6 +33,16 @@
     group: "{{ common.mq.group }}"
     owner: "{{ common.mq.user }}"
     recurse: yes
+  become: yes
+  
+- name: set ownership of MQ required directories to MQ user and group.
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+    owner: "{{ common.mq.user }}"
+    group: "{{ common.mq.group }}"
+  with_items: "{{ common.mq.directories.required }}"
   become: yes
 
 ...
