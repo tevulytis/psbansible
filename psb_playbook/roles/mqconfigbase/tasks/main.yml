@@ -3,15 +3,21 @@
 #TODO: actually create the task and yml
 - name: create single instance queue manager
   import_tasks: create_single_instance.yml
+  become: yes
+  become_user: "{{ common.mq.user }}"
   tags: configuremq
   when: not (host.mqvars.is_multi_instance)
 
 - name: create multi-instance queue managers on one host (a)
   import_tasks: create_multi_instance_primary.yml
+  become_user: "{{ common.mq.user }}"
+  become: yes
   tags: configuremq
   when: (host.mqvars.is_multi_instance) and (host.mqvars.is_primary_instance)
   
 - name: create multi-instance queue managers on partner host (b)
   import_tasks: create_multi_instance_secondary.yml
+  become_user: "{{ common.mq.user }}"
+  become: yes
   tags: configuremq
   when: (host.mqvars.is_multi_instance) and not (host.mqvars.is_primary_instance)
