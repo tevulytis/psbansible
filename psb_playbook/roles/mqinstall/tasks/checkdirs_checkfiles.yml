@@ -1,10 +1,11 @@
 ---
 #TODO: rework on fail & condition
+
 - name: "Check if required directories and files exist"
   stat: path="{{ item }}"
   register: initial_file_check
   with_items:
-  - "{{ common.mq.directories.installation_archive_path }}"
+  - "{{ common.mq.directories.onhosts.required }}"
   become: yes
 
 #- name: "Fail when required directories do not exist"

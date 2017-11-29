@@ -4,32 +4,32 @@
 #TODO: 'find' module instead of using 'shell' + ls might suit better. Installation loop probably needs to use with_dict over results.files then
 
 - name: Accept License
-  shell: chdir="{{ common.mq.directories.unarchive_dir }}MQServer/" ./mqlicense.sh -accept
+  shell: chdir="{{ common.mq.directories.onhosts.unarchive_dir }}MQServer/" ./mqlicense.sh -accept
   become: yes
 
 - name: Find rpms
-  shell: chdir="{{ common.mq.directories.unarchive_dir }}MQServer/" ls {{ item }}
-  with_items: "{{ common.mq.directories.rpm_files }}"
+  shell: chdir="{{ common.mq.directories.onhosts.unarchive_dir }}MQServer/" ls {{ item }}
+  with_items: "{{ common.mq.rpm_files }}"
   register: rpms
   become: yes
 
 - name: Install rpm packages
   yum:
-    name: "{{ common.mq.directories.unarchive_dir }}MQServer/{{ item.stdout }}"
+    name: "{{ common.mq.directories.onhosts.unarchive_dir }}MQServer/{{ item.stdout }}"
     state: present
   with_items: "{{ rpms.results }}"
   become: yes
   
 - name: cleanup rpm packages
   file:
-    path: "{{ common.mq.directories.unarchive_dir }}MQServer/"
+    path: "{{ common.mq.directories.onhosts.unarchive_dir }}MQServer/"
     state: absent
   become: yes
   
 - name: set ownership of installed MQ binaries to MQ user and group.
   file:
     state: directory
-    path: "{{ common.mq.directories.installation_dir }}"
+    path: "{{ common.mq.directories.onhosts.installation_dir }}"
     group: "{{ common.mq.group }}"
     owner: "{{ common.mq.user }}"
     recurse: yes
@@ -42,7 +42,7 @@
     recurse: yes
     owner: "{{ common.mq.user }}"
     group: "{{ common.mq.group }}"
-  with_items: "{{ common.mq.directories.required }}"
+  with_items: "{{ common.mq.directories.onhosts.required }}"
   become: yes
 
 ...

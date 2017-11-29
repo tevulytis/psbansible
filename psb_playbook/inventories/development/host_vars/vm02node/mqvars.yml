@@ -1,2 +1,4 @@
-mqvars:
-  is_primary: false
+host:
+  mqvars:
+    is_multi_instance: false
+    is_primary_instance: false

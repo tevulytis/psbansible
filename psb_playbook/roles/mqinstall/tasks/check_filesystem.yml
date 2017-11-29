@@ -5,6 +5,6 @@
     state: directory
     owner: "{{ common.mq.user }}"
     group: "{{ common.mq.group }}"
-  with_dict: "{{ common.mq.directories }}"
+  with_dict: "{{ common.mq.directories.onhosts }}"
   become: true
 ...
