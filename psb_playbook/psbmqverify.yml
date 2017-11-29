@@ -1,5 +1,5 @@
 - name: role for configuring MQ
-  hosts: vm01node
+  hosts: all
   pre_tasks:
     - include_vars: 
         file: inventories/common/mainmq.yml

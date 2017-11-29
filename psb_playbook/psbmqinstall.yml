@@ -1,6 +1,5 @@
 - name: install MQ
-  #TODO: change hosts declaration as it is only for testing purposes
-  hosts: vm01node
+  hosts: all
   pre_tasks:
     - include_vars: 
         file: inventories/common/mainmq.yml
