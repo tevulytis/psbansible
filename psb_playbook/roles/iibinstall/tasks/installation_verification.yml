@@ -4,7 +4,7 @@
 - name: installation verification.
   become: yes 
   shell: |
-    cd "{{ iib.binaries_dir }}"
+    cd "{{ common.iib.binaries_dir }}"
     ./iib verify all
   register: verification_result
 

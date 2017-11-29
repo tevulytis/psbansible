@@ -1,10 +1,2 @@
 ---
-# this group contains IIB specific variables for the development environment
-
-ins:
-  in01: IN01
-  in02: IN02
-
-qms:
-  qm01: QM01
-  qm02: QM02
+# Variables for group IIB for the development environment in Wolfsburg

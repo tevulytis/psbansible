@@ -5,11 +5,11 @@
 
 - name: configure .bashrc of the IIB user to set command environment during every login.
   become: yes
-  become_user: "{{ iib.user }}" 
+  become_user: "{{ common.iib.user }}" 
   lineinfile:
-    path: "{{ iib.userbashprofilefile }}"
+    path: "{{ common.iib.userbashprofilefile }}"
     state: present
     line: "{{ item.line }}"
   with_items:
     - { line: "# Set IIB command line environment"}
-    - { line: ". /opt/ibm/iib-{{ iib.version }}/server/bin/mqsiprofile" }
+    - { line: ". /opt/ibm/iib-{{ common.iib.version }}/server/bin/mqsiprofile" }

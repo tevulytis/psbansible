@@ -3,5 +3,5 @@
 
 - name: create IIB group 
   group:
-    name: "{{ iib.group }}"
+    name: "{{ common.iib.group }}"
   become: true

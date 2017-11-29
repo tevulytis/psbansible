@@ -3,7 +3,7 @@
 
 - name: create IIB user
   user:
-    name: "{{ iib.user }}"
+    name: "{{ common.iib.user }}"
     shell: /bin/bash
-    group: "{{ iib.group }}"
+    group: "{{ common.iib.group }}"
   become: true

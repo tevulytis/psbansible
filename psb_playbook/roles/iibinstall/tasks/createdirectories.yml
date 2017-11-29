@@ -7,4 +7,4 @@
   file:
     path: "{{ item }}"
     state: directory
-  with_items: "{{ iib.required_directories }}"
+  with_items: "{{ common.iib.required_directories }}"

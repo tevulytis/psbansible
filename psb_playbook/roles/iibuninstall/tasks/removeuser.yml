@@ -3,7 +3,7 @@
 
 - name: remove IIB user
   user:
-    name: "{{ iib.user }}"
+    name: "{{ common.iib.user }}"
     state: absent # deletes user
     remove: yes # deletes users home dir
   become: true

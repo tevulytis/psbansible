@@ -3,4 +3,4 @@
 
 - name: stop IIB processes 
   become: true
-  shell: killall -KILL -u "{{ iib.user }}"
+  shell: killall -KILL -u "{{ common.iib.user }}"

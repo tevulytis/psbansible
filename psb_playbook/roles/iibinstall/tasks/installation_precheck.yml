@@ -6,33 +6,33 @@
   stat: 
     path: "{{ item }}"
   register: dirs
-  with_items: "{{ iib.required_directories }}"
+  with_items: "{{ common.iib.required_directories }}"
 
 - name: fail if required directories are missing, otherwise skip fail.
   become: yes
   fail:
     msg: "Required directory {{ item.item }} is missing!"
   when: item.stat.exists is not defined or item.stat.exists == False
-  with_items: "{{ dirs.results }}"
+  with_items: "{{ common.dirs.results }}"
 
 - name: check IIB technical group existance.
   become: yes
-  shell: cat /etc/group | grep "{{ iib.group }}"
+  shell: cat /etc/group | grep "{{ common.iib.group }}"
   register: iib_grp
 
 - name: fail if required IIB group is missing, otherwise skip fail.
   become: yes
   fail: 
-    msg: "Required IIB group {{ iib.group }} is missing!"
+    msg: "Required IIB group {{ common.iib.group }} is missing!"
   when: iib_grp.stdout is not defined or iib_grp.stdout == ""
 
 - name: check IIB technical user existance.
   become: yes
-  shell: id "{{ iib.user }}"
+  shell: id "{{ common.iib.user }}"
   register: iib_user
 
 - name: fail if required IIB user is missing, otherise skip fail.
   become: yes
   fail:
-    msg: "Required IIB user {{ iib.user }} is missing!"
+    msg: "Required IIB user {{ common.iib.user }} is missing!"
   when: iib_user.stdout is defined and iib_user.stdout.find('no such user') != -1

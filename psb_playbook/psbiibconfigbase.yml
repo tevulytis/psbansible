@@ -8,4 +8,4 @@
   roles:
     - role: iibconfigbase
       become: yes
-      become_user: "{{ iib.user }}"
+      become_user: "{{ common.iib.user }}"

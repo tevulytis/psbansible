@@ -4,18 +4,18 @@
 - name: unpack IIB installation package.
   become: yes
   unarchive:
-    src: "{{ iib.installation_package_path }}"
-    dest: "{{ iib.installation_package_unarchive_dir }}"
+    src: "{{ common.iib.installation_package_path }}"
+    dest: "{{ common.iib.installation_package_unarchive_dir }}"
 
 - name: copy IIB binaries archive to installation location.
   become: yes
   copy:
-    src: "{{ iib.installation_package_unarchive_dir }}/EAsmbl_image/iib-10.0.0.7.tar.gz"
-    dest: "{{ iib.installation_dir }}/iib-10.0.0.7.tar.gz"
+    src: "{{ common.iib.installation_package_unarchive_dir }}/EAsmbl_image/iib-{{ common.iib.version }}.tar.gz"
+    dest: "{{ common.iib.installation_dir }}/iib-{{ common.iib.version }}.tar.gz"
     remote_src: yes
 
 - name: cleanup unpacked IIB installation package.
   become: yes
   file: 
-    path: "{{ iib.installation_package_unarchive_dir }}/{{ iib.installation_package_unarchive_name }}"
+    path: "{{ common.iib.installation_package_unarchive_dir }}/{{ common.iib.installation_package_unarchive_name }}"
     state: absent
