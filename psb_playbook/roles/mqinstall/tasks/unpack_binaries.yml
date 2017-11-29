@@ -6,13 +6,9 @@
     path: "{{ common.mq.directories.installation_archive_path }}"
 
 - name: unpack MQ installation binaries
-  unarchive: src="{{ common.mq.directories.installation_archive_path }}" dest="{{ common.mq.directories.unarchive_dir }}" 
+  unarchive: 
+    src: "{{ common.mq.directories.installation_archive_path }}" 
+    dest: "{{ common.mq.directories.unarchive_dir }}" 
   become: yes
-  
-- name: cleanup MQ installation binaries archive
-  file:
-    path: "{{ common.mq.directories.archive_dir }}"
-    state: absent
-  become: true
   
 ...
