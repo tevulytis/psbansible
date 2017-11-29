@@ -9,6 +9,7 @@ common:
     installation_dir: /opt/ibm
     binaries_dir: /opt/ibm/iib-10.0.0.7
     data_dir: /var/mqsi
+    data_dir_shared: /IIBHA/var/mqsi
     required_directories:
       - /IIBHA/var/mqsi
       - /var/mqsi

@@ -2,4 +2,4 @@
 # This playbook creates an IIB integration node.
 
 - name: create an integration node.
-  shell: "{{ common.iib.setcmdenv }}; mqsicreatebroker {{ host.ins.in02 }}"
+  shell: "{{ common.iib.setcmdenv }}; mqsicreatebroker {{ host.ins.in }}"
