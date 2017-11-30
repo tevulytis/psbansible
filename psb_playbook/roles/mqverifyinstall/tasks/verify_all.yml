@@ -2,9 +2,6 @@
 #all steps to verify WebSphere MQ installation
 #TODO: split tasks into different files
 
-- name: check user
-  command: whoami
-
 - name: check MQ version
   command: dspmqver
   register: mqversion
