@@ -1,5 +1,10 @@
 #TODO: does NOT correctly remove installed packages -> files are deleted, but packages are still registered as installed in yum
-- name: Uninstall packages
+  
+- name: Uninstall packages using the shell
+  shell: "rpm -qa | grep MQSeries | xargs rpm -ev"
+  become: true
+
+- name: Uninstall packages by yum
   yum:
     name: "{{ item }}"
     state: absent
