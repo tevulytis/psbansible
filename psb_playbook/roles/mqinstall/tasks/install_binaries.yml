@@ -45,4 +45,12 @@
   with_items: "{{ common.mq.directories.onhosts.required }}"
   become: yes
 
+- name: set ownership of MQ home directory to MQ user and group.
+  file:
+    path: "{{ common.mq.directories.onhosts.mq_home }} "
+    state: directory
+    recurse: yes
+    owner: "{{ common.mq.user }}"
+    group: "{{ common.mq.group }}"
+  become: yes
 ...

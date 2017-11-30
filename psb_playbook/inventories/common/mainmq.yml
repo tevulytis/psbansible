@@ -19,6 +19,7 @@ common:
         unarchive_dir: /opt/temporary/
         installation_dir: /opt/mqm/
         mq_binaries: /opt/mqm/bin/
+        mq_home: /home/mqm/
         log_dir: /shared/var/mqm/log
         qmgrs_dir: /shared/var/mqm/qmgrs
         required:

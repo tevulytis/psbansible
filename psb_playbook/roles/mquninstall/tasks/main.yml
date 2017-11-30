@@ -1,7 +1,7 @@
 ---
-- name: stop all processes of MQ user
-  import_tasks: stopprocesses.yml
-  tags: uninstallmq
+#- name: stop all processes of MQ user
+#  import_tasks: stopprocesses.yml
+#  tags: uninstallmq
   
 - name: uninstall MQ packages
   import_tasks: uninstallpackages.yml
