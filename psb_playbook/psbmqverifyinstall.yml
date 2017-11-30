@@ -3,6 +3,5 @@
   pre_tasks:
     - include_vars: 
         file: inventories/common/mainmq.yml
-      tags: [mqverifyinstall]
   roles:
     - mqverifyinstall

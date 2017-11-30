@@ -6,16 +6,13 @@
   import_tasks: create_active.yml
   become_user: "{{ common.mq.user }}"
   become: yes
-  tags: configuremq
 
 - name: add passive queue managers 
   import_tasks: add_passive.yml
   become_user: "{{ common.mq.user }}"
   become: yes
-  tags: configuremq
   
 - name: start active queue managers 
   import_tasks: start_active.yml
   become_user: "{{ common.mq.user }}"
   become: yes
-  tags: configuremq
