@@ -4,4 +4,4 @@
 - name: create IIB group 
   group:
     name: "{{ common.iib.group }}"
-  become: true
+  become: yes

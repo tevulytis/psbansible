@@ -3,5 +3,5 @@
   file:
     path: "{{ common.mq.directories.onhosts.installation_dir }}"
     state: absent
-  become: true
+  become: yes
 ...

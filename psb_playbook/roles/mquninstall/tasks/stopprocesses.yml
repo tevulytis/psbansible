@@ -2,5 +2,5 @@
 # This playbook stop all MQ processes running under the user MQ technical user
 
 - name: stop MQ processes 
-  become: true
+  become: yes
   shell: "killall -KILL -u {{ common.mq.user }}"

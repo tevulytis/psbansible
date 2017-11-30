@@ -6,7 +6,7 @@
   file:
     path: "{{ common.mq.directories.onhosts.unarchive_dir }}" 
     state: directory
-  become: true
+  become: yes
 
 - name: unpack MQ installation binaries
   unarchive: 

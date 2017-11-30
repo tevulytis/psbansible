@@ -4,4 +4,4 @@
 - group:
     name: "{{ common.mq.group }}"
     state: present
-  become: true
+  become: yes

@@ -5,4 +5,4 @@
   group:
     name: "{{ common.iib.group }}" 
     state: absent
-  become: true
+  become: yes

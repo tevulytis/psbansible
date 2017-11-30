@@ -9,6 +9,6 @@
     limit_item: "{{ item.item }}"
     value: "{{ item.value }}"
   with_items: "{{ common.mq.settings.user_limits }}"
-  become: true
+  become: yes
 
 ...

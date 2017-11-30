@@ -5,5 +5,5 @@
     comment: "MQ administrative user"
     group: "{{ common.mq.group }}"
     state: present
-  become: true
+  become: yes
 ...

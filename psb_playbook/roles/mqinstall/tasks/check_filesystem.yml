@@ -6,5 +6,5 @@
     owner: "{{ common.mq.user }}"
     group: "{{ common.mq.group }}"
   with_dict: "{{ common.mq.directories.onhosts }}"
-  become: true
+  become: yes
 ...

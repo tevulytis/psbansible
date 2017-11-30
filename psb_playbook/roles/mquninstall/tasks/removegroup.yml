@@ -3,4 +3,4 @@
   group:
     name: "{{ common.mq.group }}"
     state: absent
-  become: true
+  become: yes
