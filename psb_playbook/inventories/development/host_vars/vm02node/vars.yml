@@ -1,0 +1,10 @@
+host:
+  mqvars:
+    is_multi_instance: true
+    is_primary_instance: false
+    active_qmgr: 
+      name: QM02
+      listener: 
+      port:
+    passive_qmgr: 
+      name: QM01

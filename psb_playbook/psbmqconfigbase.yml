@@ -1,10 +1,9 @@
 # Role MQ
 
 - name: role for configuring MQ
-  hosts: vm01node
-  pre_tasks:
-    - include_vars: 
-        file: inventories/common/mainmq.yml
+  hosts: all
+  vars_files: 
+    - inventories/common/mainmq.yml
   environment:
     PATH: "{{ ansible_env.PATH }}:{{ common.mq.installation_dir }}bin"
   become_user: "{{ common.mq.user }}"
