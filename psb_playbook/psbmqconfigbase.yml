@@ -6,5 +6,9 @@
     - include_vars: 
         file: inventories/common/mainmq.yml
       tags: [configuremq]
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ common.mq.installation_dir }}bin"
+  become_user: "{{ common.mq.user }}"
+  become: yes
   roles:
     - mqconfigbase
