@@ -1,7 +1,9 @@
 ---
 #all steps to verify WebSphere MQ installation
-#TODO: find better solution for changing user?
 #TODO: split tasks into different files
+
+- name: check user
+  command: whoami
 
 - name: check MQ version
   command: dspmqver
@@ -50,12 +52,12 @@
   when: not ("IBM MQ queue created." in create_queue.stdout_lines[5]) and ("No commands have a syntax error.\nAll valid MQSC commands were processed." in create_queue.stdout)
   
 - name: "put a message to the test queue {{ common.mq.test_queue }} (using sample app)"
-  shell: "printf '%s\n\n' testmsg | {{ common.mq.directories.installation_dir }}samp/bin/amqsput {{ common.mq.test_queue }} {{ common.mq.qmgrs.qmgrs.primary_qmgr }}"
+  shell: "printf '%s\n\n' testmsg | {{ common.mq.directories.onhosts.installation_dir }}samp/bin/amqsput {{ common.mq.test_queue }} {{ common.mq.qmgrs.qmgrs.primary_qmgr }}"
   register: testput_message
   
 #need to check the put or not?
 - name: "get a message from the test queue {{ common.mq.test_queue }} (using sample app)"
-  command: "{{ common.mq.directories.installation_dir }}samp/bin/amqsget {{ common.mq.test_queue }} {{ common.mq.qmgrs.qmgrs.primary_qmgr }}"
+  command: "{{ common.mq.directories.onhosts.installation_dir }}samp/bin/amqsget {{ common.mq.test_queue }} {{ common.mq.qmgrs.qmgrs.primary_qmgr }}"
   register: testget_message
   
 - name: check if getting a message from the test queue "{{ common.mq.test_queue }}" was successful

@@ -1,0 +1,8 @@
+- name: role for configuring MQ
+  hosts: all
+  pre_tasks:
+    - include_vars: 
+        file: inventories/common/mainmq.yml
+      tags: [mqverifyconfig]
+  roles:
+    - mqverifyconfig

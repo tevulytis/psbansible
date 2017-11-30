@@ -2,9 +2,11 @@
 #Verify correct WebSphere MQ installation
 
 - name: verification of MQ installation
+  tags: test
   import_tasks: verify_all.yml
   become_user: "{{ common.mq.user }}"
   become: yes
   environment:
-    PATH: "{{ ansible_env.PATH }}:{{ common.mq.installation_dir }}bin"  
+    PATH: "{{ ansible_env.PATH }}:{{ common.mq.installation_dir }}bin"
+   
 ...
