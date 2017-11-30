@@ -8,7 +8,7 @@
   import_playbook: psbmqinstall.yml
 
 - name: MQ installation verification and test
-  import_playbook: psbmqverify.yml
+  import_playbook: psbmqverifyinstall.yml
   
 - name: MQ configuration tasks (Multi instance configuration)
   import_playbook: psbmqconfigbase.yml
