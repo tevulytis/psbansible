@@ -22,7 +22,7 @@
   
 - name: cleanup rpm packages
   file:
-    path: "{{ common.mq.directories.onhosts.unarchive_dir }}MQServer/"
+    path: "{{ common.mq.directories.onhosts.unarchive_dir }}"
     state: absent
   become: yes
   
