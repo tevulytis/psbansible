@@ -3,4 +3,5 @@
   user: 
     name: "{{ common.mq.user }}"
     state: absent
-  become: true
+    remove: yes
+  become: yes
