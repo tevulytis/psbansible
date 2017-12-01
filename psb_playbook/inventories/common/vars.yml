@@ -21,8 +21,8 @@ common:
         mq_binaries: /opt/mqm/bin/
         mq_home: /home/mqm/
         mq_data: /var/mqm/
-        log_dir: /shared/var/mqm/log
-        qmgrs_dir: /shared/var/mqm/qmgrs
+        log_dir: "{{ mq_log_dir }}"
+        qmgrs_dir: "{{ mq_qmgrs_dir }}"
         required:
         - /opt/mqm
         - /var/mqm
