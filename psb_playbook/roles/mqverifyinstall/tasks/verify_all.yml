@@ -3,7 +3,7 @@
 #TODO: split tasks into different files
 
 - name: check MQ version
-  command: {{ common.mq.directories.onhosts.mq_binaries }}dspmqver
+  command: "{{ common.mq.directories.onhosts.mq_binaries }}dspmqver"
   register: mqversion
   
 - name: check results of mqversion
