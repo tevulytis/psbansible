@@ -1,4 +1,4 @@
-- name: start active queue manager {{ common.mq.qmgrs.active_qmgr }} in multi-instance mode
+- name: start active queue manager {{ common.mq.qmgrs.active_qmgr.name }} in multi-instance mode
   command: >
     "{{ common.mq.directories.onhosts.mq_binaries }}strmqm 
-    -x {{ common.mq.qmgrs.active_qmgr }}"
+    -x {{ common.mq.qmgrs.active_qmgr.name }}"

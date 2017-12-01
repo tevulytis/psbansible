@@ -1,9 +1,9 @@
 ---
-- name: create passive multi-instance queue manager {{ host.mqvars.passive_qmgr }}
+- name: create passive multi-instance queue manager {{ host.mqvars.passive_qmgr.name }}
   command: >
     "{{ common.mq.directories.onhosts.mq_binaries }}addmqinf 
     -v Name={{ common.mq.qmgrs.passive_qmgr }} 
     -v Directory={{ common.mq.qmgrs.passive_qmgr }} 
     -v Prefix={{ common.mq.directories.onhosts.qmgrs_dir }} 
     -v DataPath={{ common.mq.directories.onhosts.qmgrs_dir }}"
-  when: host.is_multi_instance
+  when: host.mqvars.is_multi_instance

@@ -6,6 +6,8 @@
   import_tasks: create_active.yml
   become_user: "{{ common.mq.user }}"
   become: yes
+  environment:
+    PATH: "{{ ansible_env.PATH }}:{{ common.mq.installation_dir }}bin"
 
 - name: add passive queue managers 
   import_tasks: add_passive.yml
