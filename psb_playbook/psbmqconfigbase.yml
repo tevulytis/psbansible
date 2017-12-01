@@ -3,7 +3,7 @@
 - name: role for configuring MQ
   hosts: all
   vars_files: 
-    - inventories/common/mainmq.yml
+    - inventories/common/vars.yml
   environment:
     PATH: "{{ ansible_env.PATH }}:{{ common.mq.installation_dir }}bin"
   become_user: "{{ common.mq.user }}"

@@ -4,4 +4,5 @@
 - name: create IIB group 
   group:
     name: "{{ common.iib.group }}"
+    gid: "{{ common.iib.gid }}"
   become: yes

@@ -4,6 +4,9 @@
 - name: create IIB user
   user:
     name: "{{ common.iib.user }}"
+    uid: "{{ common.iib.uid }}"
     shell: /bin/bash
     group: "{{ common.iib.group }}"
+    groups: "{{ common.mq.group }}"
+    append: yes
   become: yes

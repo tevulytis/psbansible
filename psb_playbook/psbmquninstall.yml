@@ -2,7 +2,6 @@
   hosts: all
   pre_tasks:
     - include_vars: 
-        file: inventories/common/mainmq.yml
-      tags: [uninstallmq]
+        file: inventories/common/vars.yml
   roles:
     - mquninstall

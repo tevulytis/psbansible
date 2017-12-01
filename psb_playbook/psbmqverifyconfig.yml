@@ -2,6 +2,6 @@
   hosts: all
   pre_tasks:
     - include_vars: 
-        file: inventories/common/mainmq.yml
+        file: inventories/common/vars.yml
   roles:
     - mqverifyconfig
