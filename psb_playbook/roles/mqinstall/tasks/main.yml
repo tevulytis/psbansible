@@ -27,5 +27,7 @@
   
 - name: install MQ binaries
   import_tasks: install_binaries.yml
-  
+
+- name: set MQ command environment in .bash_profile
+  import_tasks: set_cmd_env.yml  
 ...

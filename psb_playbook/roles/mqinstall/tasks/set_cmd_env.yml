@@ -1,0 +1,15 @@
+---
+# This playbook configures the MQ command environmen for the MQ technical user.
+# For this the .bash_profile of the user is extended with the execution of MQ setmqenv command at the EOF.
+# The command environmen will be set every time the MQ technical user logs in.
+
+- name: configure .bash_profile of the MQ user to set command environment during every login.
+  become: yes
+  become_user: "{{ common.mq.user }}" 
+  lineinfile:
+    path: "{{ common.mq.userbashprofilefile }}"
+    state: present
+    line: "{{ item.line }}"
+  with_items:
+    - { line: "# Set MQ command line environment"}
+    - { line: ". /opt/mqm/bin/setmqenv -s" }

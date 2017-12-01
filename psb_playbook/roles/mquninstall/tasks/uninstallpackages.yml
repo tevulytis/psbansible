@@ -1,5 +1,5 @@
-#TODO: does NOT correctly remove installed packages -> files are deleted, but packages are still registered as installed in yum
+# Deletes all MQ packages if any installed
   
 - name: Uninstall packages using the shell
-  shell: "rpm -qa | grep MQSeries | xargs rpm -ev"
+  shell: "if [[ $(rpm -qa | grep MQSeries) ]]; then rpm -qa | grep MQSeries | xargs rpm -ev; fi"
   become: yes

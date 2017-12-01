@@ -5,21 +5,18 @@
   
 - name: uninstall MQ packages
   import_tasks: uninstallpackages.yml
-  tags: uninstallmq
   
 - name: remove MQ rpm packages
   import_tasks: removepackages.yml
-  tags: uninstallmq
 
 - name: remove binaries
   import_tasks: removebinaries.yml
-  tags: uninstallmq
-  
+
+- name: remove MQ data folder {{ common.mq.directories.onhosts.mq_home }}
+  import_tasks: deletefolders.yml
+ 
 - name: remove user {{ common.mq.user }}
   import_tasks: removeuser.yml
-  tags: uninstallmq
   
 - name: remove group {{ common.mq.group }}
   import_tasks: removegroup.yml
-  tags: uninstallmq
-  
