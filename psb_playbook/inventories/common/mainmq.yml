@@ -28,7 +28,8 @@ common:
         - /var/mqm
         - "{{ mq_qmgrs_dir }}"
         - "{{ mq_log_dir }}"
-        
+    userbashrcfile: /home/mqm/.bashrc
+    userbashprofilefile: /home/mqm/.bash_profile
     settings:
       sysctl_settings:
       - name: kernel.sem
