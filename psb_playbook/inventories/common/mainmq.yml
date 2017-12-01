@@ -11,6 +11,8 @@ common:
     version: 9.0.0.1
     user: mqm
     group: mqm
+    uid: 1001
+    gid: 1001
     directories:
       #paths on controlling machine (which is executing ansible)
       oncontroller:

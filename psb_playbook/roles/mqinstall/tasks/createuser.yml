@@ -4,6 +4,7 @@
     name: "{{ common.mq.user }}"
     comment: "MQ administrative user"
     group: "{{ common.mq.group }}"
+    uid: "{{ common.mq.uid }}"
     state: present
   become: yes
 ...

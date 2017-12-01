@@ -3,5 +3,6 @@
 
 - group:
     name: "{{ common.mq.group }}"
+    gid: "{{ common.mq.gid }}"
     state: present
   become: yes
