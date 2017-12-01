@@ -69,14 +69,6 @@ common:
     - MQSeriesGSKit-*.rpm
     - MQSeriesAMS-*.rpm
     - MQSeriesAMQP-*.rpm
-      
-    qmgrs:
-      primary_qmgr: QM01
-      secondary_qmgr: QM02
-    
+     
     test_qmgr: QM01
-            
-    queues:
-      foo_queue: QUEUE.01
-    
     test_queue: QUEUE.01
