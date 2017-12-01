@@ -1,0 +1,8 @@
+---
+# This playbook removes all MQ leftover folders after uninstallation
+
+- name: delete MQ data folder
+  become: yes
+  file:
+    path: "{{ common.mq.directories.onhosts.mq_data }}"
+    state: absent
