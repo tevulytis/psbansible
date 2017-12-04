@@ -1,1 +1,3 @@
 *.retry
+mqremoveconfigbase/
+psbmqremoveconfigbase.yml

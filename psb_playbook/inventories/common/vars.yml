@@ -3,7 +3,7 @@
 
 #the following parameters are defined outside the 'common' dictionary to prevent a 'recursive loop' error
 mq_user: mqm
-mq_log_dir: /shared/var/mqm/log
+mq_log_dir: /shared/var/mqm/logs
 mq_qmgrs_dir: /shared/var/mqm/qmgrs
 
 common:
