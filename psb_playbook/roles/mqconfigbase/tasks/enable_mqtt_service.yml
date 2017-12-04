@@ -1,0 +1,65 @@
+---
+- name: define local mqtt queue 
+  command: > 
+    echo "DEFINE QLOCAL('{{ host.mqvars.active_qmgr.mqttchannel.name }}') 
+    DESCR('{{ host.mqvars.active_qmgr.mqttchannel.description}}') 
+    USAGE(XMITQ) 
+    MAXDEPTH(100000)"
+    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.active_qmgr.name }}
+
+- name: alter transmission queue manager
+  command: > 
+    echo \"ALTER QMGR DEFXMITQ('{{ host.mqvars.active_qmgr.mqttchannel.name }}')\" 
+    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.active_qmgr.name }}
+
+#cd /opt/mqm/mqxr/samples
+
+- name: install sample MQXR service
+  command: >
+    cat \"{{ common.mq.directories.onhosts.installation_dir }}mqxr/samples/installMQXRService_unix.mqsc\"
+    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.active_qmgr.name }}
+
+- name: start MQXR service
+  command: >
+    echo \"START SERVICE(SYSTEM.MQXR.SERVICE)\" 
+    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.active_qmgr.name }}
+# servicestarts automatically with every QM start
+
+# IMPORTANT NOTE: in the following examplary setup the IBM MQ technical admin user mqm will be authorized to use MQTT service. Based on this, this user is also to be configured in the MQTT client calling MQTT service on the server. For production choose other user than mqm which is authorized to connect to and use MQTT service.
+
+
+- name: "Set authorization to base topic for user {{ common.mq.user }}"
+  command: >
+    {{ common.mq.directories.onhosts.mq_binaries }}setmqaut 
+    -m {{ host.mqvars.active_qmgr.name }}
+    -t topic
+    -n SYSTEM.BASE.TOPIC
+    -p {{ common.mq.user }}
+    -all +pub +sub
+
+#TODO: remove following step or add 'fail' module step
+- name: check topic authorization
+  command: >
+    {{ common.mq.directories.onhosts.mq_binaries }}dmpmqcfg
+    -m {{ host.mqvars.active_qmgr.name }}
+    -x authrec
+    -o setmqaut
+    | grep SYSTEM.BASE.TOPIC
+
+- name: Set authorization to MQTT transmit queue for publication to user {{ common.mq.user }}
+  command: >
+    {{ common.mq.directories.onhosts.mq_binaries }}setmqaut 
+    -m {{ host.mqvars.active_qmgr.name }} 
+    -t queue 
+    -n SYSTEM.MQTT.TRANSMIT.QUEUE 
+    -p {{ common.mq.user }} 
+    -all +put
+
+#TODO: remove following step or add 'fail' module step
+- name: check queue authorization
+  command: >
+   {{ common.mq.directories.onhosts.mq_binaries }}dmpmqcfg
+    -m {{ host.mqvars.active_qmgr.name }} 
+    -x authrec
+    -o setmqaut
+    | grep SYSTEM.MQTT.TRANSMIT.QUEUE
