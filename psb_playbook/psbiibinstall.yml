@@ -2,8 +2,8 @@
 
 - name: Play IIB install role.
   hosts: vm02node
-  pre_tasks: 
-    - include_vars: 
-        file: inventories/common/mainiib.yml
+  pre_tasks:
+    - include_vars:
+        file: inventories/common/vars.yml
   roles:
     - iibinstall

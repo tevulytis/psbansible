@@ -6,6 +6,7 @@
   unarchive:
     src: "{{ common.iib.installation_dir }}/iib-{{ common.iib.version }}.tar.gz"
     dest: "{{ common.iib.installation_dir }}"
+    remote_src: yes
 
 - name: cleanup IIB installation binaries archive.
   become: yes

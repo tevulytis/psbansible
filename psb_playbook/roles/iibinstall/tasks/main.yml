@@ -7,14 +7,14 @@
 - name: create IIB user
   import_tasks: createuser.yml
 
-- name: create IIB directories
-  import_tasks: createdirectories.yml
+#- name: create IIB directories
+#  import_tasks: createdirectories.yml
 
 - name: unpack IIB binaries
   import_tasks: unpack_binaries.yml
 
-- name: installation pre-check
-  import_tasks: installation_precheck.yml
+#- name: installation pre-check
+#  import_tasks: installation_precheck.yml
 
 - name: install IIB binaries
   import_tasks: install_binaries.yml

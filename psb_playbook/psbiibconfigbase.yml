@@ -4,7 +4,7 @@
   hosts: vm02node
   pre_tasks: 
     - include_vars: 
-        file: inventories/common/mainiib.yml
+        file: inventories/common/vars.yml
   roles:
     - role: iibconfigbase
       become: yes

@@ -1,5 +1,5 @@
 ---
-# variable definition file for websphere-mq - customize configuration parameters here
+# variable definition file for websphere-mq and IIB - customize configuration parameters here
 
 #the following parameters are defined outside the 'common' dictionary to prevent a 'recursive loop' error
 mq_user: mqm
@@ -76,3 +76,26 @@ common:
      
     test_qmgr: QM01
     test_queue: QUEUE.01
+  
+  iib:
+    version: "10.0.0.7"
+    installation_package_path: "/tmp/IIB_V10.0.0.7_LINUX_X86-64.tar.gz"
+    installation_package_unarchive_dir: /tmp
+    installation_package_unarchive_name: EAsmbl_image
+    installation_dir: /opt/ibm
+    binaries_dir: /opt/ibm/iib-10.0.0.7
+    data_dir: /var/mqsi
+    data_dir_shared: /IIBHA/var/mqsi
+    required_directories:
+      - /IIBHA/var/mqsi
+      - /var/mqsi
+      - /var/log/mqsi/messages
+      - /var/log/mqsi/errorhandling
+      - /opt/ibm
+    group: mqbrkrs
+    gid: 1002
+    user: mqbrkr
+    uid: 1002
+    userbashrcfile: /home/mqbrkr/.bashrc
+    userbashprofilefile: /home/mqbrkr/.bash_profile
+    setcmdenv: ". /opt/ibm/iib-10.0.0.7/server/bin/mqsiprofile"
