@@ -29,8 +29,27 @@
   become_user: "{{ common.mq.user }}"
   become: yes
   
-- name: Enable MQTT service
+- name: enable MQTT service
   import_tasks: enable_mqtt_service.yml
   become_user: "{{ common.mq.user }}"
   become: yes
+  
+- name: create MQTT channel
+  import_tasks: create_mqtt_channel.yml
+  become_user: "{{ common.mq.user }}"
+  tags: test
+  
+- name: create queue
+  import_tasks: create_mqtt_queue.yml
+  become_user: "{{ common.mq.user }}"
+  tags: test
+  
+- name: create topic
+  import_tasks: create_topic.yml
+  become_user: "{{ common.mq.user }}"
+  tags: test
+  
+- name: create subscripton
+  import_tasks: create_subscription.yml
+  become_user: "{{ common.mq.user }}"
   tags: test

@@ -1,0 +1,7 @@
+---
+- name: create MQTT queue
+  command: >
+    echo "DEFINE QL({{ host.mqvars.active_qmgr.queues.mqtt01.name }})
+    DESCR('{{ host.mqvars.active_qmgr.queues.mqtt01.description }}')
+    REPLACE"
+    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.active_qmgr.name }}
