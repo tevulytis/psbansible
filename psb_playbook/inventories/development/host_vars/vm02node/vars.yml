@@ -4,7 +4,15 @@ host:
     is_primary_instance: false
     active_qmgr: 
       name: QM02
-      listener: 
-      port:
+      listener01: 
+        name: listener01
+        port: 1414
+        description: standard listener
+      srvconnchannel01:
+        name: srvconnchannel01
+        description: MQ server connection channel
+      mqttchannel:
+        name: mqttchannel01
+        description: MQTT channel
     passive_qmgr: 
       name: QM01
