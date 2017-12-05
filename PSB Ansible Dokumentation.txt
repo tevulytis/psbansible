@@ -6,14 +6,78 @@ yum install ansible
 
 
 
-# SSH connection to remote host
+###### SSH connection to remote host
 
 # Configure SSH with private key
 ssh-add /path/to/private/key/key.pem
 
 
 
-# Run Ansbible Playbooks
+
+
+
+###### Mount shared FS 
+
+### On server
+
+# Install and start nfs-server
+yum install nfs-server
+systemctl start nfs-server
+
+# Add groups and users with explicit IDs
+groupadd -g 1001 mqm
+useradd mqm -u 1001 -g mqm
+groupadd -g 1002 mqbrkrs
+useradd mqbrkr -u 1002 -g mqbrkrs -G mqm
+
+# Make directories
+mkdir /IIBHA/var/mqsi
+mkdir /MQHA/var/mqm/qmgrs
+mkdir /MQHA/var/mqm/logs
+chown mqm:mqm -R /MQHA
+chown mqbrkr:mqbrkrs -R /IIBHA
+
+# Edit exports
+vi /etc/exports
+# Add following lines (* means all hosts/IPs in the network). Other options: https://linux.die.net/man/5/exports
+/IIBHA/var/mqsi          *(rw,sync,no_subtree_check)
+/MQHA/var/mqm/qmgrs      *(rw,sync,no_subtree_check)
+/MQHA/var/mqm/logs       *(rw,sync,no_subtree_check)
+
+# Restart
+systemctl restart nfs-server
+
+# add the NFS service override in CentOS 7 firewall-cmd public zone service
+firewall-cmd --permanent --zone=public --add-service=nfs
+firewall-cmd --permanent --zone=public --add-service=mountd
+firewall-cmd --permanent --zone=public --add-service=rpc-bind
+firewall-cmd --reload
+
+
+### On client
+
+# make the directory where you want to mount you FS
+mkdir -p /IIBHA/var/mqsi
+mkdir -p /MQHA/var/mqm/qmgrs
+mkdir -p /MQHA/var/mqm/logs
+
+# Mount FS of type nfs4
+mount 192.168.100.30:/IIBHA/var/mqsi /IIBHA/var/mqsi
+mount 192.168.100.30:/MQHA/var/mqm/qmgrs /MQHA/var/mqm/qmgrs
+mount 192.168.100.30:/MQHA/var/mqm/logs /MQHA/var/mqm/logs
+
+# Unmount (if FS busy, list the procs using it e.g. "lsof /IIBHA/var/mqsi")
+umount /IIBHA/var/mqsi
+umount /MQHA/var/mqm/logs
+umount /MQHA/var/mqm/qmgrs
+
+# Mount shared FS at boot timystemctl restart nfs-server
+TBD
+
+
+
+
+###### Run Ansbible Playbooks
 
 # Test ansible local connection on host to host using verbose logging
 ansible localhost -c local -m ping -vvv
