@@ -1,0 +1,10 @@
+---
+- name: create subscription
+  command: >
+    echo "DEFINE SUB({{ host.mqvars.active_qmgr.subscriptions.sub01.name }})
+    TOPICOBJ({{ host.mqvars.active_qmgr.topics.topic01.name }})
+    PSPROP(RFH2)
+    DEST({{ host.mqvars.active_qmgr.queues.mqtt01.name }})
+    DESTQMGR({{ host.mqvars.active_qmgr.name }})
+    REPLACE"
+    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.active_qmgr.name }}
