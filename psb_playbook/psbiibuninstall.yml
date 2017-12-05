@@ -1,7 +1,7 @@
 # Play role IIB uninstall
 
 - name: Play role IIB uninstall.
-  hosts: vm02node
+  hosts: all
   pre_tasks: 
     - include_vars: 
         file: inventories/common/vars.yml

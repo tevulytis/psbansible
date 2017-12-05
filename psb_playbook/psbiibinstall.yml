@@ -1,7 +1,7 @@
 # Play IIB install
 
 - name: Play IIB install role.
-  hosts: vm02node
+  hosts: all
   pre_tasks:
     - include_vars:
         file: inventories/common/vars.yml
