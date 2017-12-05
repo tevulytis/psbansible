@@ -1,0 +1,11 @@
+---
+- name: create MQTT channel
+  command: >
+    echo "DEFINE CHL({{ host.mqvars.active_qmgr.channels.mqtt01.name }})
+    CHLTYPE(MQTT)
+    TRPTYPE(TCP)
+    PORT({{ host.mqvars.active_qmgr.channels.mqtt01.port }})
+    MCAUSER('{{ common.mq.user }}')
+    DESCR('{{ host.mqvars.active_qmgr.channels.mqtt01.description }}')
+    REPLACE"
+    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.active_qmgr.name }}
