@@ -1,21 +1,20 @@
 ---
+#TODO: watch all "command" modules containing '|' in the command ->  this should not work according to documentation but does work in testing - if problems detected, use shell module
 - name: define local mqtt queue 
   command: > 
-    echo "DEFINE QLOCAL('{{ host.mqvars.active_qmgr.mqttchannel.name }}') 
-    DESCR('{{ host.mqvars.active_qmgr.mqttchannel.description}}') 
+    echo "DEFINE QLOCAL('{{ host.mqvars.active_qmgr.queues.mqtt_local.name }}') 
+    DESCR('{{ host.mqvars.active_qmgr.queues.mqtt_local.description}}') 
     USAGE(XMITQ) 
     MAXDEPTH(100000)"
     | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.active_qmgr.name }}
 
 - name: alter transmission queue manager
   command: > 
-    echo \"ALTER QMGR DEFXMITQ('{{ host.mqvars.active_qmgr.mqttchannel.name }}')\" 
+    echo \"ALTER QMGR DEFXMITQ('{{ host.mqvars.active_qmgr.queues.mqtt_local.name }}')\" 
     | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.active_qmgr.name }}
 
-#cd /opt/mqm/mqxr/samples
-
 - name: install sample MQXR service
-  command: >
+  shell: >
     cat \"{{ common.mq.directories.onhosts.installation_dir }}mqxr/samples/installMQXRService_unix.mqsc\"
     | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.active_qmgr.name }}
 
