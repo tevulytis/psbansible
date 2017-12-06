@@ -25,7 +25,6 @@ common:
         mq_data: /var/mqm/
         log_dir: "{{ mq_log_dir }}"
         qmgrs_dir: "{{ mq_qmgrs_dir }}"
-        - /shared/
     userbashrcfile: /home/mqm/.bashrc
     userbashprofilefile: /home/mqm/.bash_profile
     settings:
@@ -109,9 +108,9 @@ common:
         - IBM_IOT_MS_2.0.0.1_WEB_UI_ENV_MUL.tz
       onhosts:
         unarchive_dir: /tmp/
-        - /opt/ibm/imaserver
-        - /opt/ibm/imawebui
-        - /var/messagesight
+# syntax error       - /opt/ibm/imaserver
+# syntax error       - /opt/ibm/imawebui
+# syntax error       - /var/messagesight
     settings:
       user_limits:
       - domain: "*"
