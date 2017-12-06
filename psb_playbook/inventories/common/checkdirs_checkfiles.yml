@@ -1,0 +1,18 @@
+---
+#TODO: could also use 'stat' module (see below) and fail if directories do not exist -> enforce that directories are pre-existent instead of creating them when non-existent (e.g. useful for shared directory)
+
+- name: Ensure Filesystem directories are available
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ common.iotms.user }}"
+    group: "{{ common.iotms.group }}"
+  with_dict: "{{ common.iotms.directories.onhosts }}"
+  become: yes
+  
+- name: Check if required directories and files exist
+  stat: 
+    path: "{{ item }}"
+  with_items: "{{ common.mq.directories.onhosts }}"
+  become: yes
+...

@@ -1,0 +1,12 @@
+---
+- name: set user limits for core to unlimited
+  import_tasks: set_user_limits.yml
+  become: yes
+  
+- name: check if all required directories exist
+  import_tasks: checkdirs.yml
+  become: yes
+  
+- name: unpack installation archive containing RPM-files
+  import_tasks: unpack_binaries.yml
+  become: yes
