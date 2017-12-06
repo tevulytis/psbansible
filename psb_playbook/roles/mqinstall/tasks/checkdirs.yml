@@ -1,0 +1,17 @@
+---
+#TODO: could also use 'stat' module and fail if directories do not exist -> enforce that directories are pre-existent (e.g. useful for shared directory)
+- name: Create required directories if non-existent
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ common.mq.user }}"
+    group: "{{ common.mq.group }}"
+  with_dict: "{{ common.mq.directories.onhosts }}"
+  become: yes
+  
+- name: Check if required directories are available
+  stat:
+    path: "{{ item }}"
+  with_dict: "{{ common.mq.directories.onhosts }}"
+  become: yes
+...

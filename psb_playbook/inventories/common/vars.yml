@@ -25,11 +25,7 @@ common:
         mq_data: /var/mqm/
         log_dir: "{{ mq_log_dir }}"
         qmgrs_dir: "{{ mq_qmgrs_dir }}"
-        required:
-        - /opt/mqm
-        - /var/mqm
-        - "{{ mq_qmgrs_dir }}"
-        - "{{ mq_log_dir }}"
+        - /shared/
     userbashrcfile: /home/mqm/.bashrc
     userbashprofilefile: /home/mqm/.bash_profile
     settings:
@@ -50,13 +46,11 @@ common:
         value: 120000
           
       user_limits:
-      - domain: mqm
+      - domain: "{{ mq_user }}"
         type: "-"
-      #domain: "{{ common.mq.user }}" -> seems to create a recursive loop (only occured after rebuilt of project // vars structure - before, the statement worked fine)
         item: "nofile"
         value: "10240"
-      - domain: mqm
-      #domain: "{{  common.mq.user }}"
+      - domain: "{{ mq_user }}"
         type: "-"
         item: "nproc"
         value: "4096"
@@ -79,6 +73,7 @@ common:
     test_qmgr: QM01
     test_queue: QUEUE.01
   
+
   iib:
     version: "10.0.0.7"
     installation_package_path: "/tmp/IIB_V10.0.0.7_LINUX_X86-64.tar.gz"
@@ -101,3 +96,29 @@ common:
     userbashrcfile: /home/mqbrkr/.bashrc
     userbashprofilefile: /home/mqbrkr/.bash_profile
     setcmdenv: ". /opt/ibm/iib-10.0.0.7/server/bin/mqsiprofile"
+
+  iotms:
+    version: 2.0
+    user: root
+    group: root
+    directories:
+      oncontroller:
+        installation_archive_path: /tmp/
+        archives: 
+        - IBM_IOT_MESSAGESIGHT_V2.0.0.1_FOR.tz
+        - IBM_IOT_MS_2.0.0.1_WEB_UI_ENV_MUL.tz
+      onhosts:
+        unarchive_dir: /tmp/
+        - /opt/ibm/imaserver
+        - /opt/ibm/imawebui
+        - /var/messagesight
+    settings:
+      user_limits:
+      - domain: "*"
+        type: "soft"
+        item: "core"
+        value: "unlimited"
+      - domain: "*"
+        type: "hard"
+        item: "core"
+        value: "unlimited"

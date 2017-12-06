@@ -1,7 +1,7 @@
-- name: "install IBM WebSphere MQ Version {{ common.mq.version }}"
+- name: "install IBM IoT Message Sight {{ iotms.version }}"
   hosts: all
   pre_tasks:
     - include_vars: 
         file: inventories/common/vars.yml
   roles:
-    - mqinstall
+    - iotmsinstall
