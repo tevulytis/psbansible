@@ -44,7 +44,7 @@ common:
         value: 48000
       - name: kernel.pid_max
         value: 120000
-          
+ 
       user_limits:
       - domain: "{{ mq_user }}"
         type: "-"
@@ -54,7 +54,7 @@ common:
         type: "-"
         item: "nproc"
         value: "4096"
-          
+
     #state the packages to install
     rpm_files:
     - MQSeriesRuntime-*.rpm
@@ -72,7 +72,7 @@ common:
      
     test_qmgr: QM01
     test_queue: QUEUE.01
-  
+
 
   iib:
     version: "10.0.0.7"
@@ -104,7 +104,7 @@ common:
     directories:
       oncontroller:
         installation_archive_path: /tmp/
-        archives: 
+        archives:
         - IBM_IOT_MESSAGESIGHT_V2.0.0.1_FOR.tz
         - IBM_IOT_MS_2.0.0.1_WEB_UI_ENV_MUL.tz
       onhosts:
