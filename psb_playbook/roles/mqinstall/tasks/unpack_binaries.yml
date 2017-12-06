@@ -1,13 +1,6 @@
 ---
 #unpack binaries
 
-#TODO: this should be done for all directories in central step (e.g. checkdirs_checkfiles)
-- name: Ensure target directory is available
-  file:
-    path: "{{ common.mq.directories.onhosts.unarchive_dir }}" 
-    state: directory
-  become: yes
-
 - name: unpack MQ installation binaries
   unarchive: 
     src: "{{ common.mq.directories.oncontroller.installation_archive_path }}" 
