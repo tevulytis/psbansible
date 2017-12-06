@@ -1,4 +1,4 @@
-- name: install MQ
+- name: "install IBM WebSphere MQ Version {{ common.mq.version }}"
   hosts: all
   pre_tasks:
     - include_vars: 

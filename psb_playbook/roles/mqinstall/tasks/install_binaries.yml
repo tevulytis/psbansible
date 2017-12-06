@@ -42,7 +42,7 @@
     recurse: yes
     owner: "{{ common.mq.user }}"
     group: "{{ common.mq.group }}"
-  with_items: "{{ common.mq.directories.onhosts.required }}"
+  with_items: "{{ common.mq.directories.onhosts }}"
   become: yes
 
 - name: set ownership of MQ home directory to MQ user and group.
