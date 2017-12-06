@@ -1,9 +1,9 @@
 ---
 - name: create server connection channel
   command: > 
-        echo \"DEFINE CHL({{ host.mqvars.active_qmgr.channels.srv_conn01.name }})
+        echo \"DEFINE CHL({{ host.mqvars.channels.srv_conn01.name }})
         CHLTYPE(SVRCONN)
         TRPTYPE(TCP)
-        DESCR('{{ host.mqvars.active_qmgr.channels.srv_conn01.description}}')
+        DESCR('{{ host.mqvars.channels.srv_conn01.description}}')
         REPLACE\"
-        | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.active_qmgr.name }}
+        | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
