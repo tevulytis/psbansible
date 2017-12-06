@@ -3,8 +3,8 @@
 
 #the following parameters are defined outside the 'common' dictionary to prevent a 'recursive loop' error
 mq_user: mqm
-mq_log_dir: /shared/var/mqm/logs
-mq_qmgrs_dir: /shared/var/mqm/qmgrs
+mq_log_dir: /MQHA/var/mqm/logs
+mq_qmgrs_dir: /MQHA/var/mqm/qmgrs
 
 common:
   mq:
@@ -70,9 +70,11 @@ common:
     - MQSeriesSamples-*.rpm
     - MQSeriesJRE-*.rpm
     - MQSeriesJava-*.rpm
+    - MQSeriesXRService-*.rpm
     - MQSeriesGSKit-*.rpm
     - MQSeriesAMS-*.rpm
     - MQSeriesAMQP-*.rpm
+#    - MQSeriesWeb-*.rpm
      
     test_qmgr: QM01
     test_queue: QUEUE.01

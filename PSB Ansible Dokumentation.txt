@@ -36,13 +36,15 @@ mkdir /MQHA/var/mqm/qmgrs
 mkdir /MQHA/var/mqm/logs
 chown mqm:mqm -R /MQHA
 chown mqbrkr:mqbrkrs -R /IIBHA
+chmod -R ug+rwx /MQHA
+chmod -R ug+rwx /IIBHA
 
 # Edit exports
 vi /etc/exports
 # Add following lines (* means all hosts/IPs in the network). Other options: https://linux.die.net/man/5/exports
-/IIBHA/var/mqsi          *(rw,sync,no_subtree_check)
-/MQHA/var/mqm/qmgrs      *(rw,sync,no_subtree_check)
-/MQHA/var/mqm/logs       *(rw,sync,no_subtree_check)
+/IIBHA/var/mqsi          *(rw,sync,no_wdelay)
+/MQHA/var/mqm/qmgrs      *(rw,sync,no_wdelay)
+/MQHA/var/mqm/logs       *(rw,sync,no_wdelay)
 
 # Restart
 systemctl restart nfs-server
@@ -60,11 +62,15 @@ firewall-cmd --reload
 mkdir -p /IIBHA/var/mqsi
 mkdir -p /MQHA/var/mqm/qmgrs
 mkdir -p /MQHA/var/mqm/logs
+chown mqm:mqm -R /MQHA
+chown mqbrkr:mqbrkrs -R /IIBHA
+chmod -R ug+rwx /MQHA
+chmod -R ug+rwx /IIBHA
 
 # Mount FS of type nfs4
-mount 192.168.100.30:/IIBHA/var/mqsi /IIBHA/var/mqsi
-mount 192.168.100.30:/MQHA/var/mqm/qmgrs /MQHA/var/mqm/qmgrs
-mount 192.168.100.30:/MQHA/var/mqm/logs /MQHA/var/mqm/logs
+mount -t nfs4 -o hard,intr 192.168.100.30:/IIBHA/var/mqsi /IIBHA/var/mqsi
+mount -t nfs4 -o hard,intr 192.168.100.30:/MQHA/var/mqm/qmgrs /MQHA/var/mqm/qmgrs
+mount -t nfs4 -o hard,intr 192.168.100.30:/MQHA/var/mqm/logs /MQHA/var/mqm/logs
 
 # Unmount (if FS busy, list the procs using it e.g. "lsof /IIBHA/var/mqsi")
 umount /IIBHA/var/mqsi

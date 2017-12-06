@@ -6,7 +6,6 @@ localhost
 [wolfsburg-iib]
 vm01node ansible_port=22 ansible_host=172.17.97.21 ansible_user=desktopusr
 vm02node ansible_port=22 ansible_host=172.17.97.22 ansible_user=desktopusr
-vm03node ansible_port=22 ansible_host=172.17.97.23 ansible_user=desktopusr # shared
 
 #vm01node ansible_port=22 ansible_host=35.158.18.78 ansible_user=centos
 #vm02node ansible_port=22 ansible_host=18.194.168.113 ansible_user=centos
