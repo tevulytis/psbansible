@@ -10,3 +10,7 @@
 - name: unpack installation archive containing RPM-files
   import_tasks: unpack_binaries.yml
   become: yes
+  
+- name: install IoT MessageSight WebUI and Server
+  import_tasks: install_iotms.yml
+  become: yes
