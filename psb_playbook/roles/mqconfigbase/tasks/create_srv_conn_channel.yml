@@ -1,9 +1,11 @@
 ---
 - name: create server connection channel
   command: > 
-        echo \"DEFINE CHL({{ host.mqvars.channels.srv_conn01.name }})
-        CHLTYPE(SVRCONN)
-        TRPTYPE(TCP)
-        DESCR('{{ host.mqvars.channels.srv_conn01.description}}')
-        REPLACE\"
-        | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
+    echo \"DEFINE CHL({{ item.value.channels.srv_conn01.name }})
+    CHLTYPE(SVRCONN)
+    TRPTYPE(TCP)
+    DESCR('{{ item.value.channels.srv_conn01.description }}')
+    REPLACE\"
+    | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ item.value.name }}
+  with_dict: "{{ host.mqvars.qmgrs }}"
+  when: (item.value.channels.srv_conn01.name is defined) and (item.value.channels.srv_conn01.description is defined)

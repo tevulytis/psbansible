@@ -1,10 +1,12 @@
 ---
 - name: create subscription
   command: >
-    echo "DEFINE SUB({{ host.mqvars.subscriptions.sub01.name }})
-    TOPICOBJ({{ host.mqvars.topics.topic01.name }})
+    echo "DEFINE SUB({{ item.value.subscriptions.sub01.name }})
+    TOPICOBJ({{ item.value.topics.topic01.name }})
     PSPROP(RFH2)
-    DEST({{ host.mqvars.queues.mqtt01.name }})
-    DESTQMGR({{ host.mqvars.qmgrs.active_qmgr.name }})
+    DEST({{ item.value.queues.mqtt01.name }})
+    DESTQMGR({{ item.value.name }})
     REPLACE"
-    | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
+    | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ item.value.name }}
+  with_dict: "{{ host.mqvars.qmgrs }}"
+  when: (item.value.subscriptions.sub01.name is defined) and (item.value.topics.topic01.name is defined) and (item.value.queues.mqtt01.name is defined)

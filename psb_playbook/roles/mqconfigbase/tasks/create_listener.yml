@@ -1,12 +1,13 @@
 ---
 - name: create listener
   command: >
-    echo \"DEF LISTENER({{ host.mqvars.listeners.listenerMQ.name }}) 
+    echo \"DEF LISTENER({{ item.value.listeners.listener01.name }}) 
     TRPTYPE(TCP)
-    PORT({{ host.mqvars.listeners.listenerMQ.port }})
-    DESCR('{{ host.mqvars.listeners.listenerMQ.description }}') 
+    PORT({{ item.value.listeners.listener01.port }})
+    DESCR('{{ item.value.listeners.listener01.description }}') 
     CONTROL(QMGR) 
     REPLACE\" 
     | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc
-    {{ host.mqvars.qmgrs.active_qmgr.name }}
-    
+    {{ item.value.name }}
+  with_dict: "{{ hosts.mqvars.qmgrs }}"
+  when: (item.value.listeners.listener01.name is defined) and (item.value.listeners.listener01.port is defined) and (item.value.listeners.listener01.description is defined)
