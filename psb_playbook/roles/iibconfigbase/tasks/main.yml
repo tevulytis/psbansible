@@ -4,4 +4,4 @@
 - name: create integration node
   become: yes
   become_user: "{{ common.iib.user }}"
-  import_tasks: create_multi-instance_in.yml
+  import_tasks: create_active_in.yml

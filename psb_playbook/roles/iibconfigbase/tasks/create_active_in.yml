@@ -1,0 +1,5 @@
+---
+# This playbook creates an IIB multi-instance integration node.
+
+- name: create active multi-instance integration node "{{ host.iibvars.ins.in01.name }}".
+  shell: "{{ common.iib.setcmdenv }}; mqsicreatebroker {{ host.iibvars.ins.in01.name }} -q {{ host.mqvars.active_qmgr }} -e {{ common.iib.data_dir_shared }}"
