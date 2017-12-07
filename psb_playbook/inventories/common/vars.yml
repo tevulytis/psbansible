@@ -24,8 +24,12 @@ common:
           mq_binaries: /opt/mqm/bin/
           mq_home: /home/mqm/
           mq_data: /var/mqm/
+          mq_errors: /var/mqm/errors
           log_dir: "{{ mq_log_dir }}"
           qmgrs_dir: "{{ mq_qmgrs_dir }}"
+          single_instance: 
+            mq_si_log_dir: /var/mqm/logs
+            mq_si_qmgrs_dir: /var/mqm/qmgrs
     userbashrcfile: /home/mqm/.bashrc
     userbashprofilefile: /home/mqm/.bash_profile
     settings:
