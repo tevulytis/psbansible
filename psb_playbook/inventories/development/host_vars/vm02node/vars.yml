@@ -45,3 +45,11 @@ host:
         name: QM03
         is_multi_instance: false
         is_primary_instance: false
+  
+  iibvars:
+    ins:
+      in01:
+        name: IN02
+        multi_instance: true
+        primary_instance: true
+        is01: is_test
