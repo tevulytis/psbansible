@@ -5,7 +5,7 @@
   vars_files: 
     - inventories/common/vars.yml
   environment:
-    PATH: "{{ ansible_env.PATH }}:{{ common.mq.installation_dir }}bin"
+    PATH: "{{ ansible_env.PATH }}:{{ common.mq.directories.onhosts.required.installation_dir }}bin"
   become_user: "{{ common.mq.user }}"
   become: yes
   roles:

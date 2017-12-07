@@ -22,61 +22,61 @@
   with_items: "{{ mqconfig.stdout_lines }}"
 
 - name: create queue manager
-  command: "{{ common.mq.directories.onhosts.required.mq_binaries }}crtmqm {{ host.mqvars.qmgrs.test }}"
+  command: "{{ common.mq.directories.onhosts.required.mq_binaries }}crtmqm {{ host.mqvars.test_qmgr }}"
   register: create_mqm
 
-- name: "check if creation of queue manager {{ host.mqvars.qmgrs.test }} was successful"
+- name: "check if creation of queue manager {{ host.mqvars.test_qmgr }} was successful"
   fail:
-    msg: "Creation of the test queue manager {{ host.mqvars.qmgrs.test }} failed"
+    msg: "Creation of the test queue manager {{ host.mqvars.test_qmgr }} failed"
   when: not (("IBM MQ queue manager created." in create_mqm.stderr) and ("Setup completed." in create_mqm.stderr))
 
-- name: "start queue manager {{ host.mqvars.qmgrs.test }}"
-  command: "{{ common.mq.directories.onhosts.required.mq_binaries }}strmqm {{ host.mqvars.qmgrs.test }}"
+- name: "start queue manager {{ host.mqvars.test_qmgr }}"
+  command: "{{ common.mq.directories.onhosts.required.mq_binaries }}strmqm {{ host.mqvars.test_qmgr }}"
   register: start_mqm
 
-- name: "check if starting queue manager {{ host.mqvars.qmgrs.test }} was successful"
+- name: "check if starting queue manager {{ host.mqvars.test_qmgr }} was successful"
   fail:
-    msg: "Starting the test queue manager {{ host.mqvars.qmgrs.test }} failed" 
-  when: not ("IBM MQ queue manager '" ~ host.mqvars.qmgrs.test ~ "' started" in start_mqm.stderr)
+    msg: "Starting the test queue manager {{ host.mqvars.test_qmgr }} failed" 
+  when: not ("IBM MQ queue manager '" ~ host.mqvars.test_qmgr ~ "' started" in start_mqm.stderr)
   
-- name: "create test queue {{ host.mqvars.queues.test }}"
-  shell: 'printf "DEFINE QL({{ host.mqvars.queues.test }})" | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.test }}'
+- name: "create test queue {{ host.mqvars.qmgrs.active_qmgr.queues.test }}"
+  shell: 'printf "DEFINE QL({{ host.mqvars.qmgrs.active_qmgr.queues.test }})" | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ host.mqvars.test_qmgr }}'
   register: create_queue
   
-- name: "check if creating the test queue {{ host.mqvars.queues.test }} was successful"
+- name: "check if creating the test queue {{ host.mqvars.qmgrs.active_qmgr.queues.test }} was successful"
   fail:
-    msg: "Creating the test queue {{ common.mq.qmgrs.test_queue }} with test queue manager {{ host.mqvars.qmgrs.test }} failed"
+    msg: "Creating the test queue {{ common.mq.qmgrs.test_queue }} with test queue manager {{ host.mqvars.test_qmgr }} failed"
   when: not ("IBM MQ queue created." in create_queue.stdout_lines[5]) and ("No commands have a syntax error.\nAll valid MQSC commands were processed." in create_queue.stdout)
   
-- name: "put a message to the test queue {{ host.mqvars.queues.test }} (using sample app)"
-  shell: "printf '%s\n\n' testmsg | {{ common.mq.directories.onhosts.required.installation_dir }}samp/bin/amqsput {{ host.mqvars.queues.test }} {{ host.mqvars.qmgrs.test }}"
+- name: "put a message to the test queue {{ host.mqvars.qmgrs.active_qmgr.queues.test }} (using sample app)"
+  shell: "printf '%s\n\n' testmsg | {{ common.mq.directories.onhosts.required.installation_dir }}samp/bin/amqsput {{ host.mqvars.qmgrs.active_qmgr.queues.test }} {{ host.mqvars.test_qmgr }}"
   register: testput_message
   
 #need to check the put or not?
-- name: "get a message from the test queue {{ host.mqvars.queues.test }} (using sample app)"
-  command: "{{ common.mq.directories.onhosts.required.installation_dir }}samp/bin/amqsget {{ host.mqvars.queues.test }} {{ host.mqvars.qmgrs.test }}"
+- name: "get a message from the test queue {{ host.mqvars.qmgrs.active_qmgr.queues.test }} (using sample app)"
+  command: "{{ common.mq.directories.onhosts.required.installation_dir }}samp/bin/amqsget {{ host.mqvars.qmgrs.active_qmgr.queues.test }} {{ host.mqvars.test_qmgr }}"
   register: testget_message
   
-- name: check if getting a message from the test queue "{{ host.mqvars.queues.test }}" was successful
+- name: check if getting a message from the test queue "{{ host.mqvars.qmgrs.active_qmgr.queues.test }}" was successful
   fail:
-    msg: "Getting a message from the test queue {{ host.mqvars.queues.test }} with test queue manager {{ host.mqvars.qmgrs.test }} failed"
+    msg: "Getting a message from the test queue {{ host.mqvars.qmgrs.active_qmgr.queues.test }} with test queue manager {{ host.mqvars.test_qmgr }} failed"
   when: not (testget_message.stdout_lines[1] == 'message <testmsg>')
   
-- name: "stop created test queue manager {{ host.mqvars.qmgrs.test }}"
-  command: "{{ common.mq.directories.onhosts.required.mq_binaries }}endmqm {{ host.mqvars.qmgrs.test }}"
+- name: "stop created test queue manager {{ host.mqvars.test_qmgr }}"
+  command: "{{ common.mq.directories.onhosts.required.mq_binaries }}endmqm {{ host.mqvars.test_qmgr }}"
   register: stop_mqm
 
 #TODO: watch this condition while testing - might be very unstable due to carriage return (\n)
-- name: "check if stopping the queue manager {{ host.mqvars.qmgrs.test }} was successful"
+- name: "check if stopping the queue manager {{ host.mqvars.test_qmgr }} was successful"
   fail:
-    msg: "Stopping the test queue manager {{ host.mqvars.qmgrs.test }} failed"
+    msg: "Stopping the test queue manager {{ host.mqvars.test_qmgr }} failed"
   when: "not ('Quiesce request accepted. The queue manager will stop when all outstanding work\nis complete.' in stop_mqm.stderr)"
   
-- name: delete created test queue manager "{{ host.mqvars.qmgrs.test }}"
-  command: "{{ common.mq.directories.onhosts.required.mq_binaries }}dltmqm {{ host.mqvars.qmgrs.test }}"
+- name: delete created test queue manager "{{ host.mqvars.test_qmgr }}"
+  command: "{{ common.mq.directories.onhosts.required.mq_binaries }}dltmqm {{ host.mqvars.test_qmgr }}"
   register: delete_mqm
 
-- name: "check if deletion of queue manager {{ host.mqvars.qmgrs.test }} was successful"
+- name: "check if deletion of queue manager {{ host.mqvars.test_qmgr }} was successful"
   fail:
-    msg: "Deleting the test queue manager {{ host.mqvars.qmgrs.test }} failed"
-  when: not (delete_mqm.stderr_lines[0] == "IBM MQ queue manager '" ~ host.mqvars.qmgrs.test ~ "' deleted.")
+    msg: "Deleting the test queue manager {{ host.mqvars.test_qmgr }} failed"
+  when: not (delete_mqm.stderr_lines[0] == "IBM MQ queue manager '" ~ host.mqvars.test_qmgr ~ "' deleted.")

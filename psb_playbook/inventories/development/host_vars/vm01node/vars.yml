@@ -1,40 +1,49 @@
 ---
 # Development environment
 #TODO: remove sample data "foo"
+#IMPORTANT: for all queue manager entries under qmgrs the following variables MUST be set: is_multi_instance, is_primary_instance
 
 host:
   mqvars:
-    is_multi_instance: true
-    is_primary_instance: true
-    active_qmgr: 
-      name: QM01
-      listener01: 
-        name: listener01
-        port: 1414
-        description: MQ listener
-      queues:
-        mqtt_local:
-          name: mqtt_local01
-          description: local MQTT queue
-        mqtt01: 
-          name: mqtt_queue01
-          description: MQTT queue
-      channels:
-        srv_conn01:
-          name: srvconnchannel01
-          description: MQ server connection channel
-        mqtt01:
-          name: mqttchannel01
-          port: 1883
-          description: MQTT channel
-      topics:
-        topic01:
-          name: foo
-          topicstr: /foo/bar
-      subscriptions:
-        sub01:
-          name: foo
-    passive_qmgr: 
-      name: QM02
+    test_qmgr: QMtest
+    qmgrs:
+      active_qmgr: 
+        name: QM01
+        is_multi_instance: true
+        is_primary_instance: true
+        listener01: 
+          name: listener01
+          port: 1414
+          description: MQ listener
+        queues:
+          mqtt_local:
+            name: mqtt_local01
+            description: local MQTT queue
+          mqtt01: 
+            name: mqtt_queue01
+            description: MQTT queue
+        channels:
+          srv_conn01:
+            name: srvconnchannel01
+            description: MQ server connection channel
+          mqtt01:
+            name: mqttchannel01
+            port: 1883
+            description: MQTT channel
+        topics:
+          topic01:
+            name: foo
+            topicstr: /foo/bar
+        subscriptions:
+          sub01:
+            name: foo
+      passive_qmgr: 
+        name: QM02
+        is_multi_instance: true
+        is_primary_instance: false
+      qmgr03:
+        name: QM03
+        is_multi_instance: false
+        is_primary_instance: false
   ins:
     in: IN02
