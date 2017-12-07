@@ -1,14 +1,13 @@
 ---
 # main mq installation yaml
-
-- name: check if required directories exist
-  import_tasks: checkdirs.yml
-
 - name: create MQ technical group
   import_tasks: creategroup.yml
 
 - name: create MQ technical user
   import_tasks: createuser.yml
+
+- name: check if required directories exist
+  import_tasks: checkdirs.yml
 
 - name: set kernel parameters
   import_tasks: set_kernel_params.yml
