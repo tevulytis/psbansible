@@ -4,4 +4,4 @@
     echo "DEFINE QL({{ host.mqvars.queues.mqtt01.name }})
     DESCR('{{ host.mqvars.queues.mqtt01.description }}')
     REPLACE"
-    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
+    | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}

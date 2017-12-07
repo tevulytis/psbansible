@@ -18,13 +18,14 @@ common:
       oncontroller:
         installation_archive_path: /tmp/MQ_V9.0_F_LNX_ON_X86_64_EIMAGE.tar.gz
       onhosts:
-        unarchive_dir: /opt/temporary/
-        installation_dir: /opt/mqm/
-        mq_binaries: /opt/mqm/bin/
-        mq_home: /home/mqm/
-        mq_data: /var/mqm/
-        log_dir: "{{ mq_log_dir }}"
-        qmgrs_dir: "{{ mq_qmgrs_dir }}"
+        unarchive_dir: /tmp/
+        required:
+          installation_dir: /opt/mqm/
+          mq_binaries: /opt/mqm/bin/
+          mq_home: /home/mqm/
+          mq_data: /var/mqm/
+          log_dir: "{{ mq_log_dir }}"
+          qmgrs_dir: "{{ mq_qmgrs_dir }}"
     userbashrcfile: /home/mqm/.bashrc
     userbashprofilefile: /home/mqm/.bash_profile
     settings:

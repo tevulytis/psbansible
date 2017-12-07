@@ -4,4 +4,4 @@
     echo "DEFINE TOPIC({{ host.mqvars.topics.topic01.name }})
     TOPICSTR('{{ host.mqvars.topics.topic01.topicstr }}')
     REPLACE"
-    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
+    | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}

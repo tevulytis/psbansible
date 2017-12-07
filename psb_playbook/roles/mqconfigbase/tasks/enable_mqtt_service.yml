@@ -6,22 +6,22 @@
     DESCR('{{ host.mqvars.queues.mqtt_local.description}}') 
     USAGE(XMITQ) 
     MAXDEPTH(100000)"
-    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
+    | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
 
 - name: alter transmission queue manager
   command: > 
     echo \"ALTER QMGR DEFXMITQ('{{ host.mqvars.queues.mqtt_local.name }}')\" 
-    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
+    | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
 
 - name: install sample MQXR service
   shell: >
-    cat \"{{ common.mq.directories.onhosts.installation_dir }}mqxr/samples/installMQXRService_unix.mqsc\"
-    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
+    cat \"{{ common.mq.directories.onhosts.required.installation_dir }}mqxr/samples/installMQXRService_unix.mqsc\"
+    | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
 
 - name: start MQXR service
   command: >
     echo \"START SERVICE(SYSTEM.MQXR.SERVICE)\" 
-    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
+    | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
 # servicestarts automatically with every QM start
 
 # IMPORTANT NOTE: in the following examplary setup the IBM MQ technical admin user mqm will be authorized to use MQTT service. Based on this, this user is also to be configured in the MQTT client calling MQTT service on the server. For production choose other user than mqm which is authorized to connect to and use MQTT service.
@@ -29,7 +29,7 @@
 
 - name: "Set authorization to base topic for user {{ common.mq.user }}"
   command: >
-    {{ common.mq.directories.onhosts.mq_binaries }}setmqaut 
+    {{ common.mq.directories.onhosts.required.mq_binaries }}setmqaut 
     -m {{ host.mqvars.qmgrs.active_qmgr.name }}
     -t topic
     -n SYSTEM.BASE.TOPIC
@@ -39,7 +39,7 @@
 #TODO: remove following step or add 'fail' module step
 - name: check topic authorization
   command: >
-    {{ common.mq.directories.onhosts.mq_binaries }}dmpmqcfg
+    {{ common.mq.directories.onhosts.required.mq_binaries }}dmpmqcfg
     -m {{ host.mqvars.qmgrs.active_qmgr.name }}
     -x authrec
     -o setmqaut
@@ -47,7 +47,7 @@
 
 - name: Set authorization to MQTT transmit queue for publication to user {{ common.mq.user }}
   command: >
-    {{ common.mq.directories.onhosts.mq_binaries }}setmqaut 
+    {{ common.mq.directories.onhosts.required.mq_binaries }}setmqaut 
     -m {{ host.mqvars.qmgrs.active_qmgr.name }} 
     -t queue 
     -n SYSTEM.MQTT.TRANSMIT.QUEUE 
@@ -57,7 +57,7 @@
 #TODO: remove following step or add 'fail' module step
 - name: check queue authorization
   command: >
-   {{ common.mq.directories.onhosts.mq_binaries }}dmpmqcfg
+   {{ common.mq.directories.onhosts.required.mq_binaries }}dmpmqcfg
     -m {{ host.mqvars.qmgrs.active_qmgr.name }} 
     -x authrec
     -o setmqaut

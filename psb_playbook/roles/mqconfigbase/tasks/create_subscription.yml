@@ -7,4 +7,4 @@
     DEST({{ host.mqvars.queues.mqtt01.name }})
     DESTQMGR({{ host.mqvars.qmgrs.active_qmgr.name }})
     REPLACE"
-    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}
+    | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ host.mqvars.qmgrs.active_qmgr.name }}

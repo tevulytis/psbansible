@@ -12,7 +12,7 @@
 - name: remove binaries
   import_tasks: removebinaries.yml
 
-- name: remove MQ data folder {{ common.mq.directories.onhosts.mq_home }}
+- name: remove MQ data folder {{ common.mq.directories.onhosts.required.mq_home }}
   import_tasks: deletefolders.yml
  
 - name: remove user {{ common.mq.user }}

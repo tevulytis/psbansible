@@ -1,5 +1,6 @@
 ---
-#TODO: could also use 'stat' module and fail if directories do not exist -> enforce that directories are pre-existent (e.g. useful for shared directory)
+#TODO: could also use 'stat' module (see below) and fail if directories do not exist -> enforce that directories are pre-existent instead of creating them when non-existent (e.g. useful for shared directory)
+
 - name: Create required directories if non-existent
   file:
     path: "{{ item }}"

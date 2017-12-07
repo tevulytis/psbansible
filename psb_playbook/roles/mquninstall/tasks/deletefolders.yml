@@ -4,5 +4,5 @@
 - name: delete MQ data folder
   become: yes
   file:
-    path: "{{ common.mq.directories.onhosts.mq_data }}"
+    path: "{{ common.mq.directories.onhosts.required.mq_data }}"
     state: absent

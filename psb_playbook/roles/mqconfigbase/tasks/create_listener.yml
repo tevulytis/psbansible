@@ -7,6 +7,6 @@
     DESCR('{{ host.mqvars.listeners.listenerMQ.description }}') 
     CONTROL(QMGR) 
     REPLACE\" 
-    | {{ common.mq.directories.onhosts.mq_binaries }}runmqsc
+    | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc
     {{ host.mqvars.qmgrs.active_qmgr.name }}
     

@@ -1,7 +1,7 @@
 ---
 - name: remove MQ installation files and binaries   
   file:
-    path: "{{ common.mq.directories.onhosts.installation_dir }}"
+    path: "{{ common.mq.directories.onhosts.required.installation_dir }}"
     state: absent
   become: yes
 ...
