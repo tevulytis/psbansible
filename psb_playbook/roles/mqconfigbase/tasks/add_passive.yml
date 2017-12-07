@@ -1,9 +1,10 @@
 ---
-- name: "create passive multi-instance queue manager {{ host.mqvars.qmgrs.passive_qmgr.name }}"
+- name: "create passive multi-instance queue manager {{ item.value.name }}"
   command: >
     {{ common.mq.directories.onhosts.required.mq_binaries }}addmqinf
-    -v Name={{ host.mqvars.qmgrs.passive_qmgr.name }}
-    -v Directory={{ host.mqvars.qmgrs.passive_qmgr.name }}
+    -v Name={{ item.value.name }}
+    -v Directory={{ item.value.name }}
     -v Prefix={{ common.mq.directories.onhosts.required.mq_data }}
-    -v DataPath={{ common.mq.directories.onhosts.required.qmgrs_dir }}/{{ host.mqvars.qmgrs.passive_qmgr.name }}
-  when: host.mqvars.is_multi_instance
+    -v DataPath={{ common.mq.directories.onhosts.required.qmgrs_dir }}/{{ item.value.name }}
+  with_dict: "{{ host.mqvars.qmgrs }}"
+  when: (item.value.is_multi_instance) and not (item.value.is_primary_instance)

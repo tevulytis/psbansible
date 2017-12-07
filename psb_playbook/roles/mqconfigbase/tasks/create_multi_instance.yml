@@ -1,0 +1,12 @@
+---
+#important! for all qmgrs in host-vars there MUST exist the variables is_primary_instance and is_multi_instance! 
+#- otherwise, the conditional MUST check if a variable is undefined
+
+- name: "create active multi-instance queue manager {{ item.value.name }}"
+  command: >
+    {{ common.mq.directories.onhosts.required.mq_binaries }}crtmqm
+    -md {{ common.mq.directories.onhosts.required.qmgrs_dir }}/
+    -ld {{ common.mq.directories.onhosts.required.log_dir }}/
+    {{ item.value.name }}
+  with_dict: "{{ host.mqvars.qmgrs }}"
+  when: (item.value.is_multi_instance) and (item.value.is_primary_instance)

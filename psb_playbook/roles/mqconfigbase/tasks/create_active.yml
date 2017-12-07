@@ -1,9 +1,0 @@
----
-#TODO: this should be done in one of the preparation roles already (mqinstall or mqverify)
-
-- name: "create active multi-instance queue manager {{ host.mqvars.qmgrs.active_qmgr.name }}"
-  command: >
-    {{ common.mq.directories.onhosts.required.mq_binaries }}crtmqm
-    -md {{ common.mq.directories.onhosts.required.qmgrs_dir }}/
-    -ld {{ common.mq.directories.onhosts.required.log_dir }}/
-    {{ host.mqvars.qmgrs.active_qmgr.name }}

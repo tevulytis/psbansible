@@ -2,20 +2,25 @@
 
 #TODO: other possible version: include generic task for creating QM, in which is decided to create single-instance, multi-instance-prim. or -sec.
 #then also do this with adding and with starting mq
-- name: create active queue managers 
-  import_tasks: create_active.yml
+- name: create multi-instance queue managers 
+  import_tasks: create_multi_instance.yml
   become_user: "{{ common.mq.user }}"
   become: yes
   environment:
-    PATH: "{{ ansible_env.PATH }}:{{ common.mq.installation_dir }}bin"
+    PATH: "{{ ansible_env.PATH }}:{{ common.mq.directories.onhosts.required.installation_dir }}bin"
+    
+- name: create single-instance queue managers
+  import_tasks: create_single_instance.yml
+  become_user: "{{ common.mq.user }}"
+  become: yes
 
 - name: add passive queue managers 
   import_tasks: add_passive.yml
   become_user: "{{ common.mq.user }}"
   become: yes
   
-- name: start active queue managers 
-  import_tasks: start_active.yml
+- name: start queue managers 
+  import_tasks: start_qmgrs.yml
   become_user: "{{ common.mq.user }}"
   become: yes
   

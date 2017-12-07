@@ -1,0 +1,12 @@
+- name: "start active queue manager {{ item.value.name }} in multi-instance mode"
+  command: >
+    {{ common.mq.directories.onhosts.required.mq_binaries }}strmqm -x {{ host.mqvars.qmgrs.active_qmgr.name }}
+  with_dict: "{{ host.mqvars.qmgrs }}"
+  when: item.value.is_primary_instance and item.value.is_multi_instance
+  
+- name: "start active queue manager {{ item.value.name }} in single-instance mode"
+  command: >
+    {{ common.mq.directories.onhosts.required.mq_binaries }}strmqm 
+    {{ item.value.name }}
+  with_dict: "{{ host.mqvars.qmgrs }}"
+  when: not item.value.is_multi_instance
