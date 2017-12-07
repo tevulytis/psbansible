@@ -2,7 +2,7 @@
 # set recommended minimum Linux kernel parameters
 #TODO: implement loop (see http://docs.ansible.com/ansible/latest/playbooks_loops.html#id4)
 
-- name: Enable without reboot
+- name: Set required kernel parameters in sysctl
   sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
