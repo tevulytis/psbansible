@@ -1,0 +1,19 @@
+---
+#TODO: check if required when MS user is 'root'
+- name:
+  systemd: 
+    name: IBMIoTMessageSightWebUI.service
+    daemon_reload: yes
+    enabled: yes
+    state: started
+    
+- name:
+  systemd: 
+    name: IBMIoTMessageSightServer.service
+    daemon_reload: yes
+    enabled: yes
+    state: started
+
+- name: 
+  blockinfile:
+    
