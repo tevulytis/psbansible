@@ -3,3 +3,5 @@
 
 - name: create active multi-instance integration node "{{ host.iibvars.ins.in01.name }}".
   shell: "{{ common.iib.setcmdenv }}; mqsicreatebroker {{ host.iibvars.ins.in01.name }} -q {{ host.mqvars.qmgrs.active_qmgr.name }} -e {{ common.iib.data_dir_shared }}"
+  register: command_result
+  failed_when: "'BIP*E' in command_result.stdout"
