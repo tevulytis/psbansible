@@ -2,12 +2,20 @@ Documentation Ansible
 
 
 ###### Installation Ansible
+
+# Install ansible on client (no server installation)
 yum install ansible
 
 
 
+###### Configure Ansible
 
-###### OS users
+# Change default temp path of ansible by adding following line to /etc/ansible/ansible.cfg
+remote_tmp     = /tmp
+
+
+
+###### OS users (optional)
 
 # Add new Ansible user and set password (as root)
 useradd dekstopusr -u 1010
@@ -44,7 +52,11 @@ cat ~/.ssh/id_rsa.pub | ssh desktopusr@158.177.100.39 "mkdir -p ~/.ssh && cat >>
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
 
-
+# Keep SSH connection alive when idle by having following 2 lines in /etc/sshd/sshd_config (12 hours keepalive in secs)
+ClientAliveInterval 60
+ClientAliveCountMax 720
+# Restart ssh
+service sshd restart
 
 
 
