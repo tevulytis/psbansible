@@ -1,15 +1,48 @@
 Documentation Ansible
 
 
-# Installation Ansible
+###### Installation Ansible
 yum install ansible
+
+
+
+
+###### OS users
+
+# Add new Ansible user and set password (as root)
+useradd dekstopusr -u 1010
+passwd desktopusr
+
+# Make the user sudoer
+usermod -aG wheel desktopusr
+
 
 
 
 ###### SSH connection to remote host
 
-# Configure SSH with private key
-ssh-add /path/to/private/key/key.pem
+### On Client
+
+# generate a new SSH key
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+# Add SSH private key to ssh-agent
+ssh-add ~/.ssh/id_rsa
+
+# Set permissions
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_rsa
+
+# Place Ansible users public key to remote servers
+cat ~/.ssh/id_rsa.pub | ssh desktopusr@158.177.100.34 "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"
+cat ~/.ssh/id_rsa.pub | ssh desktopusr@158.177.100.39 "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"
+
+
+### On Server
+
+# Set permissions
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
 
 
 
@@ -20,9 +53,16 @@ ssh-add /path/to/private/key/key.pem
 
 ### On server
 
-# Install and start nfs-server
-yum install nfs-server
+# Install, enable and start nfs
+yum -y install nfs-utils
+systemctl enable rpcbind
+systemctl enable nfs-server
+systemctl enable nfs-lock
+systemctl enable nfs-idmap
+systemctl start rpcbind
 systemctl start nfs-server
+systemctl start nfs-lock
+systemctl start nfs-idmap
 
 # Add groups and users with explicit IDs
 groupadd -g 1001 mqm
@@ -31,9 +71,9 @@ groupadd -g 1002 mqbrkrs
 useradd mqbrkr -u 1002 -g mqbrkrs -G mqm
 
 # Make directories
-mkdir /IIBHA/var/mqsi
-mkdir /MQHA/var/mqm/qmgrs
-mkdir /MQHA/var/mqm/logs
+mkdir -p /IIBHA/var/mqsi
+mkdir -p /MQHA/var/mqm/qmgrs
+mkdir -p /MQHA/var/mqm/logs
 chown mqm:mqm -R /MQHA
 chown mqbrkr:mqbrkrs -R /IIBHA
 chmod -R ug+rwx /MQHA
@@ -58,14 +98,17 @@ firewall-cmd --reload
 
 ### On client
 
+# Install nfs-utils
+yum install nfs-utils
+
 # make the directory where you want to mount you FS
 mkdir -p /IIBHA/var/mqsi
 mkdir -p /MQHA/var/mqm/qmgrs
 mkdir -p /MQHA/var/mqm/logs
-chown mqm:mqm -R /MQHA
-chown mqbrkr:mqbrkrs -R /IIBHA
-chmod -R ug+rwx /MQHA
-chmod -R ug+rwx /IIBHA
+#chown mqm:mqm -R /MQHA
+#chown mqbrkr:mqbrkrs -R /IIBHA
+#chmod -R ug+rwx /MQHA
+#chmod -R ug+rwx /IIBHA
 
 # Mount FS of type nfs4
 mount -t nfs4 -o hard,intr 192.168.100.30:/IIBHA/var/mqsi /IIBHA/var/mqsi
