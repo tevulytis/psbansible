@@ -4,11 +4,16 @@
 localhost
 
 [wolfsburg-iib]
-vm01node ansible_port=22 ansible_host=172.17.97.21 ansible_user=desktopusr
-vm02node ansible_port=22 ansible_host=172.17.97.22 ansible_user=desktopusr
+vm01node ansible_port=22 ansible_host=172.17.97.21 ansible_user=desktopusr # TEC VM01
+vm02node ansible_port=22 ansible_host=172.17.97.22 ansible_user=desktopusr # TEC VM02
+
+#vm01node ansible_port=22 ansible_host=158.177.100.34 ansible_user=desktopusr # IBM Cloud VM01
+#vm02node ansible_port=22 ansible_host=158.177.100.39 ansible_user=desktopusr # IBM Cloud VM02
 
 #vm01node ansible_port=22 ansible_host=35.158.18.78 ansible_user=centos
 #vm02node ansible_port=22 ansible_host=18.194.168.113 ansible_user=centos
+
+
 
 [wolfsburg-ms]
 # tbd
