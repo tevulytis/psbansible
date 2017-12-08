@@ -1,14 +1,14 @@
 #install MessageSight
 
 - name: Find rpms
-  shell: chdir="{{ common.iotms.directories.onhosts.unarchive_dir }}" ls {{ item }}
-  with_items: "{{ common.iotms.directories.oncontroller.archives }}"
+  shell: "chdir={{ common.iotms.directories.onhosts.unarchive_dir }} ls {{ item }}*.rpm "
+  with_items: "{{ common.iotms.rpm_files }}"
   register: rpms
   become: yes
 
 - name: Install rpm packages
   yum:
-    name: "{{ common.iotms.directories.onhosts.unarchive_dir }}/{{ item.stdout }}"
+    name: "{{ common.iotms.directories.onhosts.unarchive_dir }}{{ item.stdout }}"
     state: present
     disable_gpg_check: yes
   with_items: "{{ rpms.results }}"

@@ -3,16 +3,16 @@
 
 - name: Create required directories if non-existent
   file:
-    path: "{{ item }}"
+    path: "{{ item.value }}"
     state: directory
     owner: "{{ common.iotms.user }}"
     group: "{{ common.iotms.group }}"
-  with_dict: "{{ common.iotms.directories.onhosts }}"
+  with_dict: "{{ common.iotms.directories.onhosts.required }}"
   become: yes
   
 - name: Check if required directories are available
   stat:
-    path: "{{ item }}"
+    path: "{{ item.value }}"
   with_dict: "{{ common.mq.directories.onhosts }}"
   become: yes
 ...

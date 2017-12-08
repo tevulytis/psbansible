@@ -3,5 +3,6 @@
   pre_tasks:
     - include_vars: 
         file: inventories/common/vars.yml
+      tags: test
   roles:
     - iotmsinstall

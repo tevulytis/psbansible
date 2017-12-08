@@ -113,11 +113,13 @@ common:
         - IBM_IOT_MS_2.0.0.1_WEB_UI_ENV_MUL.tz
       onhosts:
         unarchive_dir: /tmp/
-        imssrv_inst_dir: /opt/ibm/imaserver
-        imswui_inst_dir: /opt/ibm/imawebui
         required:
-        -  /var/messagesight
-
+          imssrv_inst_dir: /opt/ibm/imaserver
+          imswui_inst_dir: /opt/ibm/imawebui
+          data_dir: /var/messagesight
+    rpm_files:
+    - IBMIoTMessageSightWebUI
+    - IBMIoTMessageSightServer
     settings:
       user_limits:
       - domain: "*"

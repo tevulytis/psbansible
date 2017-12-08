@@ -4,7 +4,7 @@
 - name: unpack MessageSight installation binaries
   unarchive: 
     src: "{{ common.iotms.directories.oncontroller.installation_archive_path }}{{ item }}" 
-    dest: "{{ common.iotms.directories.onhosts.unarchive_dir }}" 
+    dest: "{{ common.iotms.directories.onhosts.unarchive_dir }}"
   with_items: "{{ common.iotms.directories.oncontroller.archives }}"
   become: yes
   

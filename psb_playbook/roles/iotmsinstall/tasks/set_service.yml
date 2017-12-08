@@ -1,19 +1,20 @@
 ---
 #TODO: check if required when MS user is 'root'
-- name:
+- name: edit IBM IoT MessageSight service settings
   systemd: 
-    name: IBMIoTMessageSightWebUI.service
+    name: "{{ item }}.service"
     daemon_reload: yes
     enabled: yes
     state: started
-    
-- name:
-  systemd: 
-    name: IBMIoTMessageSightServer.service
-    daemon_reload: yes
-    enabled: yes
-    state: started
+  with_items: "{{ common.iotms.rpm_files }}"
 
-- name: 
+#refactor: insertafter: 'regex' does not work yet - block is inserted at wrong point
+- name: add IBM IoT MessageSight user and group for service 
   blockinfile:
+    block: |
+      User={{ common.iotms.user }}
+      Group:{{ common.iotms.group}}
+    path: "/etc/systemd/system/{{ item }}.service"
+    insertafter: "[Service]"
+  with_items: "{{ common.iotms.rpm_files }}"
     
