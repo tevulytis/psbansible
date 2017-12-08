@@ -9,5 +9,9 @@
     REPLACE\" 
     | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc
     {{ item.value.name }}
-  with_dict: "{{ hosts.mqvars.qmgrs }}"
-  when: (item.value.listeners.listener01.name is defined) and (item.value.listeners.listener01.port is defined) and (item.value.listeners.listener01.description is defined)
+  with_dict: "{{ host.mqvars.qmgrs }}"
+  when: >
+    (item.value.listeners is defined)
+    and (item.value.listeners.listener01.name is defined)
+    and (item.value.listeners.listener01.port is defined)
+    and (item.value.listeners.listener01.description is defined)
