@@ -1,11 +1,15 @@
 ---
 #unpack binaries
 
+#note: owner, group and mode was set here because the unarchive module altered permissions on the /tmp/ directory, leading to further errors. 
+#note: 'mode' has to be specified with a leading '0' before the actual mode or quoted ("mode"), i.e. as string
 - name: unpack MessageSight installation binaries
   unarchive: 
     src: "{{ common.iotms.directories.oncontroller.installation_archive_path }}{{ item }}" 
     dest: "{{ common.iotms.directories.onhosts.unarchive_dir }}"
+    owner: "{{ common.iotms.user }}"
+    group: "{{ common.iotms.group }}"
+    mode: 01777
   with_items: "{{ common.iotms.directories.oncontroller.archives }}"
-  become: yes
   
 ...
