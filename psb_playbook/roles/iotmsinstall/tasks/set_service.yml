@@ -8,13 +8,13 @@
     state: started
   with_items: "{{ common.iotms.rpm_files }}"
 
-#refactor: insertafter: 'regex' does not work yet - block is inserted at wrong point
+#note: the lines # BEGIN/ END ANSIBLE MANAGED BLOCK will be added before/ after the block - this is required by the 'blockinfile' module to work correctly. To avoid this, use 'lineinfile' module with a loop instead.
 - name: add IBM IoT MessageSight user and group for service 
   blockinfile:
     block: |
       User={{ common.iotms.user }}
       Group:{{ common.iotms.group}}
     path: "/etc/systemd/system/{{ item }}.service"
-    insertafter: "[Service]"
+    insertafter: '\[Service\]'
   with_items: "{{ common.iotms.rpm_files }}"
     
