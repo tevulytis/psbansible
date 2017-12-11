@@ -1,5 +1,5 @@
 ---
-#TODO: could also use 'stat' module (see below) and fail if directories do not exist -> enforce that directories are pre-existent instead of creating them when non-existent (e.g. useful for shared directory)
+#TODO: could also use 'stat' module (see below) and fail if directories do not exist -> enforce that directories are pre-existent instead of creating them when non-existent (e.g. useful for mounted directories)
 
 - name: Create required directories if non-existent
   file:
@@ -8,11 +8,10 @@
     owner: "{{ common.iotms.user }}"
     group: "{{ common.iotms.group }}"
   with_dict: "{{ common.iotms.directories.onhosts.required }}"
-  become: yes
   
-- name: Check if required directories are available
-  stat:
-    path: "{{ item.value }}"
-  with_dict: "{{ common.mq.directories.onhosts }}"
-  become: yes
+# - name: Check if required directories are available
+ # stat:
+   # path: "{{ item.value }}"
+  # with_dict: "{{ common.mq.directories.onhosts.required }}"
+  # become: yes
 ...

@@ -9,9 +9,9 @@
   with_dict: "{{ common.mq.directories.onhosts.required }}"
   become: yes
   
-- name: Check if required directories are available
-  stat:
-    path: "{{ item }}"
-  with_dict: "{{ common.mq.directories.onhosts }}"
-  become: yes
+#- name: Check if required directories are available
+ # stat:
+  #  path: "{{ item }}"
+  #with_dict: "{{ common.mq.directories.onhosts }}"
+  #become: yes
 ...
