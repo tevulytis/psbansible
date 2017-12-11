@@ -1,7 +1,7 @@
 ---
-#variable definition file for websphere-mq and IIB - customize configuration parameters here
+# variable definition file for websphere-mq and IIB - customize configuration parameters here
 
-#note: the following parameters are defined outside the 'common' dictionary to prevent a 'recursive loop' error
+#the following parameters are defined outside the 'common' dictionary to prevent a 'recursive loop' error
 mq_user: mqm
 mq_log_dir: /MQHA/var/mqm/logs
 mq_qmgrs_dir: /MQHA/var/mqm/qmgrs
@@ -14,10 +14,9 @@ common:
     uid: 1001
     gid: 1001
     directories:
-      #note: the following are paths on controlling machine
+      #paths on controlling machine (which is executing ansible)
       oncontroller:
         installation_archive_path: /tmp/MQ_V9.0_F_LNX_ON_X86_64_EIMAGE.tar.gz
-      #note: the following are paths on the target 'hosts' 
       onhosts:
         unarchive_dir: /tmp/
         required:
@@ -60,7 +59,7 @@ common:
         item: "nproc"
         value: "4096"
 
-    #note: state the packages to install under rpm_files
+    #state the packages to install
     rpm_files:
     - MQSeriesRuntime-*.rpm
     - MQSeriesServer-*.rpm

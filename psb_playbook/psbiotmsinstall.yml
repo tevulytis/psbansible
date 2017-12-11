@@ -1,6 +1,8 @@
 - name: "install IBM IoT Message Sight {{ common.iotms.version }}"
   hosts: all
-  vars_files:
-  - inventories/common/vars.yml
+  pre_tasks:
+    - include_vars: 
+        file: inventories/common/vars.yml
+      tags: test
   roles:
     - iotmsinstall
