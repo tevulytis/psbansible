@@ -7,4 +7,6 @@
     -v Prefix={{ common.mq.directories.onhosts.required.mq_data }}
     -v DataPath={{ common.mq.directories.onhosts.required.qmgrs_dir }}/{{ item.value.name }}
   with_dict: "{{ host.mqvars.qmgrs }}"
-  when: (item.value.is_multi_instance) and not (item.value.is_primary_instance)
+  when: >
+    (item.value.is_multi_instance)
+    and not (item.value.is_primary_instance)

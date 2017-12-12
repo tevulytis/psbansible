@@ -2,9 +2,11 @@
 #TODO: test if "undefined" works -> if first condition leads to execution or if all conditions get evaluated (which would lead to fail when is_multi_instance is undefined)
 
 - name: "create single-instance queue manager {{ item.value.name }}"
-  register: single_instance
   command: >
     {{ common.mq.directories.onhosts.required.mq_binaries }}crtmqm 
     {{ item.value.name }}
   with_dict: "{{ host.mqvars.qmgrs }}"
-  when: (item.value.is_primary_instance is undefined) or (item.value.is_multi_instance is undefined) or not (item.value.is_multi_instance) 
+  when: >
+    (item.value.is_primary_instance is undefined)
+    or (item.value.is_multi_instance is undefined)
+    or not (item.value.is_multi_instance)

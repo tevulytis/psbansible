@@ -9,4 +9,6 @@
     -ld {{ common.mq.directories.onhosts.required.log_dir }}/
     {{ item.value.name }}
   with_dict: "{{ host.mqvars.qmgrs }}"
-  when: (item.value.is_multi_instance) and (item.value.is_primary_instance)
+  when: >
+    (item.value.is_multi_instance)
+    and (item.value.is_primary_instance)
