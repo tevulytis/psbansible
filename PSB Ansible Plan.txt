@@ -18,6 +18,8 @@ a) must: Alles für was man root Rechte brauchen
 		DONE - instalaltion of IIB binaries
 	iii) DONE MQ Installation verification
 	iv) DONE IIB Installation verification
+        v) MQ Fixpack Installation
+        vi) IIB Fixpack Installation
 
 b) must: Konfiguration MQ Server MultiInstance
 	i) create multi-instance queue manager
