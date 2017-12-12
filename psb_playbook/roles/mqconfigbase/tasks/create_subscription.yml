@@ -9,4 +9,8 @@
     REPLACE"
     | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ item.value.name }}
   with_dict: "{{ host.mqvars.qmgrs }}"
-  when: (item.value.subscriptions.sub01.name is defined) and (item.value.topics.topic01.name is defined) and (item.value.queues.mqtt01.name is defined)
+  when: >
+    (item.value.subscriptions is defined) 
+    and (item.value.subscriptions.sub01.name is defined)
+    and (item.value.topics.topic01.name is defined) 
+    and (item.value.queues.mqtt01.name is defined)

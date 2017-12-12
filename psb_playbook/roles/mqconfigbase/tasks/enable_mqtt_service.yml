@@ -9,7 +9,9 @@
     MAXDEPTH(100000)"
     | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ item.value.name }}
   with_dict: "{{ host.mqvars.qmgrs }}"
-  when: (item.value.queues.mqtt_local.name is defined) and (item.value.queues.mqtt_local.description is defined)
+  when: >
+    (item.value.queues.mqtt_local.name is defined)
+    and (item.value.queues.mqtt_local.description is defined)
 
 - name: alter transmission queue manager
   command: > 

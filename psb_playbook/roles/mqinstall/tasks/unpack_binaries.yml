@@ -4,7 +4,8 @@
 - name: unpack MQ installation binaries
   unarchive: 
     src: "{{ common.mq.directories.oncontroller.installation_archive_path }}" 
-    dest: "{{ common.mq.directories.onhosts.unarchive_dir }}" 
+    creates: "{{ common.mq.directories.onhosts.unarchive_dir }}" 
+    dest: "{{ common.mq.directories.onhosts.unarchive_dir }}"
   become: yes
-  
+  tags: test
 ...

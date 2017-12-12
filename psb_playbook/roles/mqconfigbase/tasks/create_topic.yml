@@ -6,4 +6,7 @@
     REPLACE"
     | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ item.value.name }}
   with_dict: "{{ host.mqvars.qmgrs }}"
-  when: (item.value.topics.topic01.name is defined) and (item.value.topics.topic01.topicstr is defined)
+  when: >
+    (item.value.topics is defined)
+    and (item.value.topics.topic01.name is defined)
+    and (item.value.topics.topic01.topicstr is defined)

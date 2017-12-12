@@ -8,4 +8,6 @@
     REPLACE\"
     | {{ common.mq.directories.onhosts.required.mq_binaries }}runmqsc {{ item.value.name }}
   with_dict: "{{ host.mqvars.qmgrs }}"
-  when: (item.value.channels.srv_conn01.name is defined) and (item.value.channels.srv_conn01.description is defined)
+  when: >
+    (item.value.channels.srv_conn01.name is defined)
+    and (item.value.channels.srv_conn01.description is defined)

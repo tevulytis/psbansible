@@ -14,3 +14,7 @@
 - name: install IoT MessageSight WebUI and Server
   import_tasks: install_iotms.yml
   become: yes
+
+- name: configure the service for IoT MessageSight WebUI and Server
+  import_tasks: set_service.yml
+  become: yes
