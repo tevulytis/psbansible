@@ -6,6 +6,7 @@
 - name: unpack MessageSight installation binaries
   unarchive: 
     src: "{{ common.iotms.directories.oncontroller.installation_archive_path }}{{ item }}" 
+    creates: "{{ common.mq.directories.onhosts.unarchive_dir }}"
     dest: "{{ common.iotms.directories.onhosts.unarchive_dir }}"
     owner: "{{ common.iotms.user }}"
     group: "{{ common.iotms.group }}"
