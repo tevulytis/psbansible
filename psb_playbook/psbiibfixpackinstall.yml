@@ -1,0 +1,9 @@
+# Play IIB fixpack install
+
+- name: Play IIB fixpack install role.
+  hosts: all
+  pre_tasks:
+    - include_vars:
+        file: inventories/common/vars.yml
+  roles:
+    - iibfixpackinstall

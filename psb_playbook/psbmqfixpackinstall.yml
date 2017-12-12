@@ -1,0 +1,6 @@
+- name: "install IBM WebSphere MQ FixPack"
+  hosts: all
+  vars_files: 
+  - inventories/common/vars.yml
+  roles:
+    - mqfixpackinstall
